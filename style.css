@@ -116,3 +116,120 @@ footer{margin-top:40px;padding:14px;text-align:center;color:var(--muted)}
 @media (max-width:900px){
   .cart-section{position:static;width:auto;margin:12px}
 }
+
+/* Checkout modal đẹp */
+.checkout-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.checkout-field label {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.checkout-field input,
+.checkout-field textarea {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  width: 100%;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.checkout-field textarea {
+  min-height: 60px;
+}
+/* Modal Mua hàng responsive */
+#checkout-modal .modal-content {
+  max-width: 600px; /* Desktop: vừa phải */
+  width: 90%;       /* Mobile: chiếm 90% */
+  max-height: 90vh; /* Giới hạn chiều cao modal */
+  overflow-y: auto; /* Scroll nếu nội dung cao */
+  padding: 20px;
+}
+
+#checkout-modal h2 {
+  margin-top: 0;
+  font-size: 20px;
+  text-align: center;
+}
+
+#checkout-modal .checkout-field input,
+#checkout-modal .checkout-field textarea {
+  font-size: 15px;
+}
+
+#checkout-modal button {
+  flex: 1;
+}
+
+/* Khi màn hình nhỏ hơn 480px (mobile) */
+@media (max-width: 480px) {
+  #checkout-modal .modal-content {
+    padding: 16px;
+    width: 95%;
+  }
+  
+  #checkout-modal h2 {
+    font-size: 18px;
+  }
+  
+  #checkout-modal .checkout-field input,
+  #checkout-modal .checkout-field textarea {
+    font-size: 14px;
+  }
+  
+  #checkout-modal div[style*="display:flex"] {
+    flex-direction: column;
+  }
+
+  #checkout-modal div[style*="display:flex"] button {
+    width: 100%;
+  }
+}
+/* Checkout modal đẹp */
+.checkout-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.checkout-field label {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.checkout-field input,
+.checkout-field textarea {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  width: 100%;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.checkout-field textarea {
+  min-height: 60px;
+}
+
+/* Responsive */
+#checkout-modal .modal-content {
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+#checkout-modal h2 { text-align:center; }
+
+@media (max-width:480px){
+  #checkout-modal .modal-content { width:95%; padding:16px; }
+  #checkout-modal .checkout-field input, #checkout-modal .checkout-field textarea { font-size:14px; }
+  #checkout-modal div[style*="display:flex"] { flex-direction:column; }
+  #checkout-modal div[style*="display:flex"] button { width:100%; }
+}

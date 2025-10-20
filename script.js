@@ -185,3 +185,83 @@ function checkout() {
 // ================== KHỞI ĐỘNG ==================
 renderProducts();
 renderCart();
+// Mở modal mua hàng
+function openCheckout() {
+  if(Object.keys(cart).length === 0) {
+    alert("🛒 Giỏ hàng đang trống.");
+    return;
+  }
+  document.getElementById("checkout-modal").classList.remove("hidden");
+}
+
+// Đóng modal
+function closeCheckout(e) {
+  if(e && e.target && e.target.classList.contains('modal')) {
+    document.getElementById("checkout-modal").classList.add("hidden");
+    return;
+  }
+  document.getElementById("checkout-modal").classList.add("hidden");
+}
+
+// Xác nhận mua hàng và xuất TXT
+function confirmCheckout() {
+  const name = document.getElementById("recipient-name").value.trim();
+  const phone = document.getElementById("recipient-phone").value.trim();
+  const address = document.getElementById("recipient-address").value.trim();
+  const time = document.getElementById("delivery-time").value.trim();
+
+  if(!name || !phone || !address || !time){
+    alert("Vui lòng điền đầy đủ thông tin giao hàng!");
+    return;
+  }
+
+  const ids = Object.keys(cart);
+  let total = 0;
+  let lines = [];
+  lines.push("================== HOÁ ĐƠN NƯỚC MẮM 584 =================");
+  lines.push("Thời gian đặt: " + new Date().toLocaleString());
+  lines.push("---------------------------------------------------------");
+  lines.push(`Người nhận: ${name}`);
+  lines.push(`SĐT: ${phone}`);
+  lines.push(`Địa chỉ: ${address}`);
+  lines.push(`Thời gian giao: ${time}`);
+  lines.push("---------------------------------------------------------");
+  lines.push("Tên sản phẩm                 Giá Số lượng Thành tiền");
+  lines.push("---------------------------------------------------------");
+
+  ids.forEach(k => {
+    const id = Number(k);
+    const qty = cart[k];
+    const p = products.find(x => x.id === id);
+    const sub = p.price * qty;
+    total += sub;
+
+    const nameStr = p.title.padEnd(25," ");
+    const priceStr = (p.price+"k").padStart(7," ");
+    const qtyStr = (qty+" chai").padStart(8," ");
+    const subStr = (sub+"k").padStart(10," ");
+    lines.push(`${nameStr}${priceStr}${qtyStr}${subStr}`);
+  });
+
+  lines.push("---------------------------------------------------------");
+  const vat = total * 0.08;
+  const totalLast = total + vat;
+  lines.push(`Tổng`.padEnd(40) + `${total}k`.padStart(10));
+  lines.push(`VAT (8%)`.padEnd(40) + `${vat.toFixed(0)}k`.padStart(10));
+  lines.push(`Tổng cộng`.padEnd(40) + `${totalLast.toFixed(0)}k`.padStart(10));
+  lines.push("---------------------------------------------------------");
+  lines.push("Cảm ơn quý khách đã mua hàng ❤️");
+  lines.push("=========================================================");
+
+  const blob = new Blob([lines.join("\r\n")], {type:"text/plain;charset=utf-8"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "hoadon584.txt";
+  a.click();
+  URL.revokeObjectURL(url);
+
+  cart = {}; // reset giỏ
+  renderCart();
+  closeCheckout();
+}

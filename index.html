@@ -23,13 +23,12 @@
     <p>Chuyên cung cấp nước mắm nguyên chất Nha Trang, đảm bảo 100% cá cơm tươi.</p>
   </section>
 
-  <!-- Danh mục sản phẩm -->
   <section id="sanpham" class="product-section">
     <h2>DANH MỤC SẢN PHẨM</h2>
     <div id="product-list" class="product-list"></div>
   </section>
 
-  <!-- Trang chi tiết sản phẩm (modal) -->
+  <!-- Modal chi tiết sản phẩm -->
   <div id="detail-modal" class="modal hidden" onclick="closeDetail(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
       <button class="close" onclick="closeDetail()">✕</button>
@@ -37,13 +36,42 @@
     </div>
   </div>
 
-  <!-- Giỏ hàng (sidebar / section) -->
+  <!-- Modal mua hàng -->
+  <div id="checkout-modal" class="modal hidden" onclick="closeCheckout(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="close" onclick="closeCheckout()">✕</button>
+      <div id="checkout-body">
+        <h2>Thông tin giao hàng</h2>
+        <div class="checkout-field">
+          <label>Họ và tên người nhận:</label>
+          <input type="text" id="recipient-name" placeholder="Nguyễn Văn A" />
+        </div>
+        <div class="checkout-field">
+          <label>Số điện thoại:</label>
+          <input type="text" id="recipient-phone" placeholder="090xxxxxxx" />
+        </div>
+        <div class="checkout-field">
+          <label>Địa chỉ giao hàng:</label>
+          <textarea id="recipient-address" placeholder="Số nhà, đường, phường, quận, thành phố"></textarea>
+        </div>
+        <div class="checkout-field">
+          <label>Thời gian giao:</label>
+          <input type="datetime-local" id="delivery-time" />
+        </div>
+        <div style="margin-top:16px; display:flex; gap:12px;">
+          <button class="button btn-add" onclick="confirmCheckout()">Đồng ý giao</button>
+          <button class="button btn-detail" onclick="closeCheckout()">Quay lại giỏ hàng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <aside id="giohang" class="cart-section">
     <h2>GIỎ HÀNG CỦA BẠN</h2>
     <div id="cart-items"></div>
     <div class="cart-summary">
       <p>Tổng tiền: <strong id="cart-total">0₫</strong></p>
-      <button id="checkout-btn" onclick="checkout()">In hoá đơn / Tải TXT</button>
+      <button id="checkout-btn" onclick="openCheckout()">Mua hàng</button>
       <button id="clear-btn" onclick="clearCart()">Xóa giỏ hàng</button>
     </div>
   </aside>
