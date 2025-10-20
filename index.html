@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nước Mắm Truyền Thống 584</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Nước Mắm Truyền Thống 584</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Trang chủ</a></li>
+        <li><a href="#sanpham">Sản phẩm</a></li>
+        <li><a href="#giohang">Giỏ hàng (<span id="cart-count">0</span>)</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="intro">
+    <h2>Hương vị truyền thống – Tinh túy từ biển cả</h2>
+    <p>Chuyên cung cấp nước mắm nguyên chất Nha Trang, đảm bảo 100% cá cơm tươi.</p>
+  </section>
+
+  <!-- Danh mục sản phẩm -->
+  <section id="sanpham" class="product-section">
+    <h2>DANH MỤC SẢN PHẨM</h2>
+    <div class="product-list">
+
+      <div class="product-card" onclick="showDetail(1)">
+        <img src="https://i.imgur.com/twzK7Q5.jpg" alt="Nước mắm 584 40 độ đạm">
+        <h3>Nước mắm 584 40°N</h3>
+        <p>Giá: <strong>95.000₫ / chai 500ml</strong></p>
+        <button onclick="addToCart(event, 1)">Thêm vào giỏ</button>
+      </div>
+
+      <div class="product-card" onclick="showDetail(2)">
+        <img src="https://i.imgur.com/tfFfVh4.jpg" alt="Nước mắm 584 35 độ đạm">
+        <h3>Nước mắm 584 35°N</h3>
+        <p>Giá: <strong>75.000₫ / chai 500ml</strong></p>
+        <button onclick="addToCart(event, 2)">Thêm vào giỏ</button>
+      </div>
+
+      <div class="product-card" onclick="showDetail(3)">
+        <img src="https://i.imgur.com/RMPsOMY.jpg" alt="Nước mắm 584 đặc biệt">
+        <h3>Nước mắm 584 đặc biệt 45°N</h3>
+        <p>Giá: <strong>120.000₫ / chai 500ml</strong></p>
+        <button onclick="addToCart(event, 3)">Thêm vào giỏ</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Trang chi tiết sản phẩm -->
+  <section id="chitiet" class="detail-section hidden">
+    <button class="back-btn" onclick="closeDetail()">← Quay lại</button>
+    <div id="detail-content"></div>
+  </section>
+
+  <!-- Giỏ hàng -->
+  <section id="giohang" class="cart-section">
+    <h2>GIỎ HÀNG CỦA BẠN</h2>
+    <div id="cart-items"></div>
+    <p id="cart-total"></p>
+  </section>
+
+  <footer>
+    <p>© 2025 Nước Mắm 584 Nha Trang | Liên hệ: 090x.xxx.xxx</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
