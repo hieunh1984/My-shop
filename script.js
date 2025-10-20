@@ -1,87 +1,187 @@
-// Danh sách sản phẩm
+// ================== DỮ LIỆU SẢN PHẨM ==================
 const products = [
-  {
-    id: 1,
-    name: "Nước mắm 584 40°N",
-    price: 95000,
-    image: "https://i.imgur.com/twzK7Q5.jpg",
-    desc: "Đậm đà vị truyền thống, cá cơm nguyên chất 40 độ đạm, hương thơm tự nhiên."
-  },
-  {
-    id: 2,
-    name: "Nước mắm 584 35°N",
-    price: 75000,
-    image: "https://i.imgur.com/tfFfVh4.jpg",
-    desc: "Loại nước mắm phổ thông, thơm ngon, phù hợp mọi bữa ăn gia đình."
-  },
-  {
-    id: 3,
-    name: "Nước mắm 584 đặc biệt 45°N",
-    price: 120000,
-    image: "https://i.imgur.com/RMPsOMY.jpg",
-    desc: "Được ủ chượp lâu năm, vị mặn mà, dùng chấm hải sản cực ngon."
-  }
+  { id: 1, code: "60N", price: 55, title: "Nước mắm 584 60°N", img: "https://picsum.photos/id/1025/600/400", desc: "Chai 300ml - Đậm đặc, phù hợp nấu ăn và chấm." },
+  { id: 2, code: "40N", price: 60, title: "Nước mắm 584 40°N", img: "https://picsum.photos/id/1011/600/400", desc: "Chai 500ml - Hương vị cân bằng, dùng ăn hàng ngày." },
+  { id: 3, code: "35N", price: 45, title: "Nước mắm 584 35°N", img: "https://picsum.photos/id/1015/600/400", desc: "Chai 500ml - Vị nhẹ, phù hợp gia đình trẻ." },
+  { id: 4, code: "30N", price: 35, title: "Nước mắm 584 30°N", img: "https://picsum.photos/id/1020/600/400", desc: "Chai 500ml - Giá hợp lý, dùng nấu canh, kho." },
+  { id: 5, code: "25N", price: 28, title: "Nước mắm 584 25°N", img: "https://picsum.photos/id/1027/600/400", desc: "Chai 500ml - Vị nhẹ, giá tiết kiệm." },
+  { id: 6, code: "20N", price: 22, title: "Nước mắm 584 20°N", img: "https://picsum.photos/id/1035/600/400", desc: "Chai 500ml - Dành cho nấu ăn, tiết kiệm." }
 ];
 
-let cart = [];
+const productListEl = document.getElementById("product-list");
+const cartCountEl = document.getElementById("cart-count");
+const cartItemsEl = document.getElementById("cart-items");
+const cartTotalEl = document.getElementById("cart-total");
 
-// ========== HIỂN THỊ CHI TIẾT SẢN PHẨM ==========
-function showDetail(id) {
-  const product = products.find(p => p.id === id);
-  const detailSection = document.getElementById("chitiet");
-  const detailContent = document.getElementById("detail-content");
+let cart = {}; // { id: qty }
 
-  detailContent.innerHTML = `
-    <img src="${product.image}" alt="${product.name}">
-    <h2>${product.name}</h2>
-    <p><strong>Giá:</strong> ${product.price.toLocaleString()}₫</p>
-    <p>${product.desc}</p>
-    <button onclick="addToCart(event, ${id})">Thêm vào giỏ</button>
-  `;
-
-  detailSection.classList.add("active");
-  detailSection.classList.remove("hidden");
-  window.scrollTo({ top: detailSection.offsetTop, behavior: "smooth" });
+function formatVND(n) {
+  return new Intl.NumberFormat('vi-VN').format(n * 1000) + "₫";
 }
 
-function closeDetail() {
-  const detailSection = document.getElementById("chitiet");
-  detailSection.classList.remove("active");
-  detailSection.classList.add("hidden");
-}
-
-// ========== XỬ LÝ GIỎ HÀNG ==========
-function addToCart(event, id) {
-  event.stopPropagation(); // không mở chi tiết khi bấm nút
-  const product = products.find(p => p.id === id);
-  cart.push(product);
-  updateCart();
-}
-
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCart();
-}
-
-function updateCart() {
-  const cartItems = document.getElementById("cart-items");
-  const cartCount = document.getElementById("cart-count");
-  const cartTotal = document.getElementById("cart-total");
-
-  cartItems.innerHTML = "";
-  let total = 0;
-
-  cart.forEach((item, index) => {
-    total += item.price;
-    cartItems.innerHTML += `
-      <div class="cart-item">
-        <h4>${item.name}</h4>
-        <p>${item.price.toLocaleString()}₫</p>
-        <button onclick="removeFromCart(${index})">Xóa</button>
+// ================== HIỂN THỊ DANH SÁCH SẢN PHẨM ==================
+function renderProducts() {
+  productListEl.innerHTML = "";
+  products.forEach(p => {
+    const div = document.createElement("div");
+    div.className = "product-card";
+    div.innerHTML = `
+      <img src="${p.img}" alt="${p.title}">
+      <h3>${p.title}</h3>
+      <p>Mã: <strong>${p.code}</strong></p>
+      <p>Giá: <strong>${formatVND(p.price)}</strong></p>
+      <div class="card-actions">
+        <button class="button btn-detail" onclick="showDetail(${p.id})">Chi tiết</button>
+        <button class="button btn-add" onclick="addToCart(event, ${p.id})">Thêm vào giỏ</button>
       </div>
     `;
+    productListEl.appendChild(div);
+  });
+}
+
+// ================== CHI TIẾT SẢN PHẨM ==================
+function showDetail(id) {
+  const p = products.find(x => x.id === id);
+  const modal = document.getElementById("detail-modal");
+  const body = document.getElementById("detail-body");
+  body.innerHTML = `
+    <div class="detail">
+      <img src="${p.img}" alt="${p.title}">
+      <div class="info">
+        <h2>${p.title}</h2>
+        <p><strong>Mã:</strong> ${p.code}</p>
+        <p><strong>Giá:</strong> ${formatVND(p.price)}</p>
+        <p>${p.desc}</p>
+        <div style="margin-top:12px;">
+          <input id="qty-${p.id}" type="number" min="1" value="1" style="width:80px;padding:6px;border-radius:6px;border:1px solid #ddd">
+          <button class="button btn-add" onclick="addFromDetail(${p.id})">Thêm vào giỏ</button>
+        </div>
+      </div>
+    </div>
+  `;
+  modal.classList.remove("hidden");
+}
+
+function closeDetail(e) {
+  if (e && e.target && e.target.classList.contains('modal')) {
+    document.getElementById("detail-modal").classList.add("hidden");
+    return;
+  }
+  document.getElementById("detail-modal").classList.add("hidden");
+}
+
+function addFromDetail(id) {
+  const qtyInput = document.getElementById(`qty-${id}`);
+  const qty = parseInt(qtyInput.value) || 1;
+  addToCart(null, id, qty);
+  closeDetail();
+}
+
+// ================== GIỎ HÀNG ==================
+function addToCart(event, id, qty = 1) {
+  if (event) event.stopPropagation();
+  cart[id] = (cart[id] || 0) + qty;
+  renderCart();
+}
+
+function changeQty(id, delta) {
+  if (!cart[id]) return;
+  cart[id] += delta;
+  if (cart[id] <= 0) delete cart[id];
+  renderCart();
+}
+
+function clearCart() {
+  cart = {};
+  renderCart();
+}
+
+function renderCart() {
+  cartItemsEl.innerHTML = "";
+  let total = 0;
+  const ids = Object.keys(cart);
+
+  if (ids.length === 0) {
+    cartItemsEl.innerHTML = "<p>Giỏ hàng trống.</p>";
+  } else {
+    ids.forEach(k => {
+      const id = Number(k);
+      const qty = cart[k];
+      const p = products.find(x => x.id === id);
+      const item = document.createElement("div");
+      item.className = "cart-item";
+      const sub = p.price * qty;
+      total += sub;
+      item.innerHTML = `
+        <img src="${p.img}" alt="${p.title}">
+        <div class="meta">
+          <strong>${p.title}</strong>
+          <small>${formatVND(p.price)} × ${qty} = ${formatVND(sub)}</small>
+        </div>
+        <div class="qty">
+          <button onclick="changeQty(${id}, -1)">-</button>
+          <div>${qty}</div>
+          <button onclick="changeQty(${id}, 1)">+</button>
+        </div>
+      `;
+      cartItemsEl.appendChild(item);
+    });
+  }
+
+  cartTotalEl.textContent = formatVND(total);
+  cartCountEl.textContent = ids.reduce((s, k) => s + cart[k], 0);
+}
+
+// ================== XUẤT HOÁ ĐƠN (canh lề như Go) ==================
+function checkout() {
+  const ids = Object.keys(cart);
+  if (ids.length === 0) {
+    alert("🛒 Giỏ hàng đang trống.");
+    return;
+  }
+
+  let total = 0;
+  let lines = [];
+  lines.push("================== HOÁ ĐƠN NƯỚC MẮM 584 =================");
+  lines.push("Thời gian: " + new Date().toLocaleString());
+  lines.push("---------------------------------------------------------");
+  lines.push("Tên sản phẩm                 Giá Số lượng Thành tiền");
+  lines.push("---------------------------------------------------------");
+
+  ids.forEach(k => {
+    const id = Number(k);
+    const qty = cart[k];
+    const p = products.find(x => x.id === id);
+    const sub = p.price * qty;
+    total += sub;
+
+    // canh lề tương tự fmt.Fprintf
+    const name = p.title.padEnd(25, " ");
+    const price = (p.price + "k").padStart(7, " ");
+    const qtyStr = (qty + " chai").padStart(8, " ");
+    const subStr = (sub + "k").padStart(10, " ");
+    lines.push(`${name}${price}${qtyStr}${subStr}`);
   });
 
-  cartCount.textContent = cart.length;
-  cartTotal.textContent = `Tổng cộng: ${total.toLocaleString()}₫`;
+  lines.push("---------------------------------------------------------");
+  const vat = total * 0.08;
+  const totalLast = total + vat;
+  lines.push(`Tổng`.padEnd(40) + `${total}k`.padStart(10));
+  lines.push(`VAT (8%)`.padEnd(40) + `${vat.toFixed(0)}k`.padStart(10));
+  lines.push(`Tổng cộng`.padEnd(40) + `${totalLast.toFixed(0)}k`.padStart(10));
+  lines.push("---------------------------------------------------------");
+  lines.push("Cảm ơn quý khách đã mua hàng ❤️");
+  lines.push("=========================================================");
+
+  const blob = new Blob([lines.join("\r\n")], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "hoadon584.txt";
+  a.click();
+  URL.revokeObjectURL(url);
 }
+
+// ================== KHỞI ĐỘNG ==================
+renderProducts();
+renderCart();
