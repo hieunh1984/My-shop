@@ -1,16 +1,20 @@
-// ================== DỮ LIỆU SẢN PHẨM ==================
+// ========== DANH SÁCH SẢN PHẨM ==========
 const products = [
   { id: 1, title: "Nước mắm 584 30°N", price: 35000, img: "img/nuocmam30.jpg", desc: "Đậm đà vị cá cơm truyền thống." },
   { id: 2, title: "Nước mắm 584 35°N", price: 45000, img: "img/nuocmam35.jpg", desc: "Ngon đậm vị, thích hợp chấm và nấu." },
-  { id: 3, title: "Nước mắm nhĩ đặc biệt 40°N", price: 60000, img: "img/nuocmam40.jpg", desc: "Tinh túy giọt nhĩ đầu tiên." }
+  { id: 3, title: "Nước mắm nhĩ đặc biệt 40°N", price: 60000, img: "img/nuocmam40.jpg", desc: "Tinh túy giọt nhĩ đầu tiên." },
+  { id: 4, title: "Nước mắm 584 Gold", price: 80000, img: "img/gold.jpg", desc: "Loại cao cấp dành cho bữa ăn sang trọng." },
+  { id: 5, title: "Nước mắm 584 cá cơm đặc biệt", price: 50000, img: "img/cacomdacbiet.jpg", desc: "Chắt lọc từ cá cơm tươi ngon nhất." },
+  { id: 6, title: "Nước mắm nhĩ cá cơm thượng hạng", price: 70000, img: "img/thuonghang.jpg", desc: "Dành cho người sành ăn, vị mặn mà tự nhiên." },
+  { id: 7, title: "Nước mắm 584 truyền thống 25°N", price: 30000, img: "img/25N.jpg", desc: "Hương vị nhẹ, phù hợp nấu ăn hàng ngày." }
 ];
 
-let cart = {}; // { id: quantity }
+let cart = {};
 
-// ================== HIỂN THỊ SẢN PHẨM ==================
+// ========== HIỂN THỊ SẢN PHẨM ==========
 function renderProducts() {
-  const list = document.getElementById("product-list");
-  list.innerHTML = products.map(p => `
+  const container = document.getElementById("product-list");
+  container.innerHTML = products.map(p => `
     <div class="product-card">
       <img src="${p.img}" alt="${p.title}">
       <h3>${p.title}</h3>
@@ -21,7 +25,7 @@ function renderProducts() {
   `).join("");
 }
 
-// ================== GIỎ HÀNG ==================
+// ========== GIỎ HÀNG WEB ==========
 function addToCart(id) {
   cart[id] = (cart[id] || 0) + 1;
   renderCart();
@@ -42,17 +46,15 @@ function renderCart() {
   let total = 0;
   container.innerHTML = ids.map(k => {
     const p = products.find(x => x.id == k);
-    const lineTotal = p.price * cart[k];
-    total += lineTotal;
+    total += p.price * cart[k];
     return `
       <div class="cart-item">
-        <div><strong>${p.title}</strong></div>
-        <div class="cart-controls">
+        <strong>${p.title}</strong>
+        <div>
           <span>Số lượng: ${cart[k]}</span>
           <button onclick="removeItem(${p.id})">Xóa</button>
         </div>
-      </div>
-    `;
+      </div>`;
   }).join("");
 
   document.getElementById("cart-total").textContent = total.toLocaleString() + "₫";
@@ -79,7 +81,7 @@ function updateBadge() {
   badge.classList.toggle("hidden", count === 0);
 }
 
-// ================== POPUP GIỎ HÀNG MOBILE ==================
+// ========== GIỎ HÀNG MOBILE ==========
 function toggleCart() {
   const popup = document.getElementById("cart-popup");
   popup.style.display = popup.style.display === "block" ? "none" : "block";
@@ -93,11 +95,10 @@ function closeCart() {
 function updateCartPopup() {
   const list = document.getElementById("cart-popup-items");
   const totalDisplay = document.getElementById("cart-popup-total");
-  if (!list || !totalDisplay) return;
 
   const ids = Object.keys(cart);
   if (ids.length === 0) {
-    list.innerHTML = "<li>Chưa có sản phẩm trong giỏ.</li>";
+    list.innerHTML = "<li>Chưa có sản phẩm</li>";
     totalDisplay.textContent = "0₫";
     return;
   }
@@ -105,8 +106,7 @@ function updateCartPopup() {
   let total = 0;
   list.innerHTML = ids.map(k => {
     const p = products.find(x => x.id == k);
-    const lineTotal = p.price * cart[k];
-    total += lineTotal;
+    total += p.price * cart[k];
     return `
       <li class="cart-item">
         <div>
@@ -114,31 +114,42 @@ function updateCartPopup() {
           <span>Số lượng: ${cart[k]}</span>
         </div>
         <button onclick="removeItem(${p.id})">Xóa</button>
-      </li>
-    `;
+      </li>`;
   }).join("");
 
   totalDisplay.textContent = total.toLocaleString() + "₫";
 }
 
-// ================== THANH TOÁN ==================
+// ========== THANH TOÁN ==========
 function openCheckout() {
   const ids = Object.keys(cart);
-  if (ids.length === 0) {
-    alert("Giỏ hàng trống!");
-    return;
-  }
-  alert("🛒 Mở form thông tin giao hàng (bạn có thể thêm modal nếu muốn).");
+  if (ids.length === 0) return alert("Giỏ hàng trống!");
+  document.getElementById("checkout-modal").style.display = "block";
 }
 
 function closeCheckout() {
-  document.getElementById("checkout-modal").classList.add("hidden");
+  document.getElementById("checkout-modal").style.display = "none";
 }
 
-// ================== KHỞI ĐỘNG ==================
+function confirmCheckout() {
+  const name = document.getElementById("recipient-name").value.trim();
+  const phone = document.getElementById("recipient-phone").value.trim();
+  const address = document.getElementById("recipient-address").value.trim();
+
+  if (!name || !phone || !address) {
+    alert("⚠️ Vui lòng nhập đầy đủ thông tin giao hàng!");
+    return;
+  }
+
+  alert(`✅ Cảm ơn ${name}! Đơn hàng của bạn sẽ được giao tới:\n${address}`);
+  closeCheckout();
+  clearCart();
+}
+
+// ========== KHỞI ĐỘNG ==========
 function scrollToTop(e) {
   e.preventDefault();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
