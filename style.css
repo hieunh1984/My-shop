@@ -233,3 +233,22 @@ footer{margin-top:40px;padding:14px;text-align:center;color:var(--muted)}
   #checkout-modal div[style*="display:flex"] { flex-direction:column; }
   #checkout-modal div[style*="display:flex"] button { width:100%; }
 }
+.messenger-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background:#0084ff;
+  color:white;
+  padding:12px 20px;
+  border-radius:50px;
+  text-decoration:none;
+  font-weight:bold;
+  box-shadow:2px 2px 8px rgba(0,0,0,0.3);
+  transition:0.3s;
+  z-index:1000;
+}
+
+.messenger-btn:hover {
+  background:#005bb5;
+  transform:scale(1.05);
+}
