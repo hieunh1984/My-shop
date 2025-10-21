@@ -1,6 +1,6 @@
 # 🐟 Nước Mắm 584 – Hương vị truyền thống Việt Nam 🇻🇳
 
-Chào mừng bạn đến với **My-shop**, nơi giới thiệu và bán các sản phẩm **nước mắm truyền thống** được chọn lọc từ những làng nghề nổi tiếng của Việt Nam.
+Chào mừng bạn đến với **My-shop**, nơi giới thiệu và bán các sản phẩm **nước mắm truyền thống** được chọn lọc từ xứ biển Nha Trang nổi tiếng của Việt Nam.
 
 ---
 
@@ -35,9 +35,9 @@ _(Nếu chưa mở được, đợi vài phút cho GitHub Pages cập nhật)_
 
 ## ❤️ Liên hệ
 📞 Hotline: **090x.xxx.xxx**  
-📧 Email: **nuocmam584@example.com**  
-📍 Địa chỉ: **Phan Thiết, Việt Nam**
+📧 Email: **xxx@gmail.com**  
+📍 Địa chỉ: **Nha Trang, Khánh Hòa, Việt Nam**
 
 ---
 
-### © 2025 My-shop – Tinh hoa từ biển cả Việt Nam 🇻🇳
+### © 2025 Nuocmam584 – Tinh hoa từ biển cả Việt Nam
