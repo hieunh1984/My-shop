@@ -191,6 +191,30 @@
     💬 Chat với chúng tôi
   </a>
 
+  <!-- Nút giỏ hàng nổi -->
+<div class="cart-button" onclick="toggleCart()">
+  🛒
+  <span id="cart-count">0</span>
+</div>
+
+<!-- Popup giỏ hàng (dành cho mobile) -->
+<div id="cart-popup" class="cart-popup">
+  <h3>Giỏ hàng của bạn</h3>
+  <ul id="cart-popup-items">
+    <li>Chưa có sản phẩm</li>
+  </ul>
+  <button onclick="closeCart()">Đóng</button>
+</div>
+
+<script>
+function toggleCart() {
+  const popup = document.getElementById('cart-popup');
+  popup.style.display = (popup.style.display === 'block') ? 'none' : 'block';
+}
+function closeCart() {
+  document.getElementById('cart-popup').style.display = 'none';
+}
+</script>
   <script src="script.js"></script>
 
   <script>

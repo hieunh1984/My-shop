@@ -348,3 +348,56 @@ header nav ul li:hover ul {
   overflow: visible;
   z-index: 10060; /* đảm bảo cao hơn cả cart */
 }
+
+/* ======== Nút giỏ hàng nổi kiểu Messenger ======== */
+.cart-button {
+  position: fixed;
+  bottom: 90px;  /* nằm trên nút chat */
+  right: 20px;
+  background: var(--accent);
+  color: white;
+  font-size: 26px;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1200;
+  display: none; /* mặc định ẩn trên desktop */
+}
+
+/* Số lượng sản phẩm hiển thị trên nút */
+.cart-button #cart-count {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: yellow;
+  color: black;
+  font-size: 14px;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+/* Khung popup giỏ hàng bật ra */
+.cart-popup {
+  position: fixed;
+  bottom: 160px;
+  right: 20px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  width: 280px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  display: none;
+  z-index: 1199;
+}
+
+/* Chỉ hiện kiểu Messenger trên màn hình nhỏ */
+@media (max-width: 768px) {
+  .cart-section { display: none; } /* Ẩn khung to */
+  .cart-button { display: flex; }  /* Hiện nút tròn */
+}
