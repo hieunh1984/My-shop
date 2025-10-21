@@ -9,15 +9,113 @@
 <body>
 
   <header>
-    <div class="header-container">
-      <h1>Nước Mắm 584</h1>
-      <nav>
-        <a href="#">Trang chủ</a>
-        <a href="#">Sản phẩm</a>
-        <a href="#">Giỏ hàng</a>
-      </nav>
-    </div>
-  </header>
+  <div class="header-container">
+    <h1>Nước Mắm 584</h1>
+    <nav>
+      <div class="dropdown">
+        <a href="#" class="nav-main" onclick="scrollToTop(event)">Trang chủ ▾</a>
+        <div class="dropdown-content">
+          <a href="readme.html" target="_blank">Giới thiệu</a>
+          <a href="#sanpham">Sản phẩm</a>
+        </div>
+      </div>
+      <a href="#giohang" class="nav-cart">Giỏ hàng</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Cuộn về đầu trang
+  function scrollToTop(e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+<style>
+  /* ======= Menu dropdown ======= */
+  header {
+    position: relative;
+    z-index: 100;
+  }
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #c0392b;
+    padding: 10px 20px;
+  }
+
+  h1 {
+    color: #fff;
+    margin: 0;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+  }
+
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; /* hiện ngay bên dưới Trang chủ */
+    left: 0;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 18px rgba(0,0,0,0.15);
+    border-radius: 6px;
+    overflow: hidden;
+    z-index: 200; /* cao hơn Giỏ hàng */
+  }
+
+  .dropdown-content a {
+    color: #333;
+    padding: 10px 14px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #f0f0f0;
+    color: #c0392b;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  /* Nút Trang chủ chính */
+  .nav-main {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .nav-main:hover {
+    color: #ffeb3b;
+  }
+
+  /* Nút Giỏ hàng */
+  .nav-cart {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    top: 2px; /* thụt nhẹ xuống */
+  }
+
+  .nav-cart:hover {
+    color: #ffeb3b;
+  }
+</style>
 
   <section class="intro">
     <h2>Hương vị truyền thống – Tinh túy từ biển cả</h2>

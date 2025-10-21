@@ -263,3 +263,88 @@ footer {
   background:#005bb5;
   transform:scale(1.05);
 }
+
+/* Cho menu xổ xuống nổi lên */
+header nav ul li ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  padding: 8px 0;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  display: none;
+  z-index: 2000; /* cao hơn giỏ hàng */
+}
+
+header nav ul li:hover ul {
+  display: block;
+}
+
+/* Giỏ hàng – thụt xuống thêm để tránh đụng menu */
+.cart-section {
+  position: fixed;
+  right: 18px;
+  top: 140px; /* ↓ từ 120px -> 140px */
+  width: 300px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.12);
+  z-index: 100; /* thấp hơn header */
+}
+
+/* === Header (sửa để dropdown không bị cắt) === */
+header {
+  position: relative;
+  padding: 20px 40px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  border-bottom: 4px solid rgba(255,255,255,0.5);
+  /* bỏ overflow: hidden; để dropdown không bị cắt */
+  overflow: visible;          /* <-- CHÚ Ý: sửa từ hidden -> visible */
+  z-index: 1000;              /* header nổi trên giỏ hàng */
+}
+
+/* đảm bảo lớp nội dung vẫn nằm trên pseudo */
+.header-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+/* Dropdown menu (đặt z-index thật cao) */
+header nav ul li {
+  position: relative; /* để ul con absolute lấy tham chiếu */
+}
+header nav ul li ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  padding: 8px 0;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  display: none;
+  z-index: 10050; /* rất cao để chắc chắn nổi trên mọi thứ */
+  overflow: visible;
+}
+
+/* Khi hover thì hiện */
+header nav ul li:hover ul {
+  display: block;
+}
+
+/* Nếu bạn vẫn dùng .dropdown-content */
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #ffffff;
+  box-shadow: 0px 8px 18px rgba(0,0,0,0.15);
+  border-radius: 6px;
+  overflow: visible;
+  z-index: 10060; /* đảm bảo cao hơn cả cart */
+}
