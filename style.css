@@ -352,48 +352,35 @@ header nav ul li:hover ul {
 /* ======== Nút giỏ hàng nổi kiểu Messenger ======== */
 .cart-button {
   position: fixed;
-  bottom: 90px;  /* nằm trên nút chat */
+  bottom: 80px;
   right: 20px;
-  background: var(--accent);
-  color: white;
-  font-size: 26px;
-  border-radius: 50%;
   width: 60px;
   height: 60px;
+  border-radius: 50%;
+  background: #c0392b;
+  color: white;
+  border: none;
+  font-size: 22px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-  cursor: pointer;
-  z-index: 1200;
-  display: none; /* mặc định ẩn trên desktop */
+  transition: 0.3s;
 }
-
-/* Số lượng sản phẩm hiển thị trên nút */
-.cart-button #cart-count {
+.cart-button:hover { transform: scale(1.1); background: #e74c3c; }
+#cart-count {
   position: absolute;
   top: 8px;
   right: 10px;
   background: yellow;
   color: black;
-  font-size: 14px;
-  padding: 2px 6px;
   border-radius: 50%;
-}
-
-/* Khung popup giỏ hàng bật ra */
-.cart-popup {
-  position: fixed;
-  bottom: 160px;
-  right: 20px;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 15px;
-  width: 280px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-  display: none;
-  z-index: 1199;
+  padding: 2px 6px;
+  font-size: 13px;
+  font-weight: bold;
 }
 
 /* Chỉ hiện kiểu Messenger trên màn hình nhỏ */
