@@ -117,10 +117,25 @@
   }
 </style>
 
-  <section class="intro">
-    <h2>Hương vị truyền thống – Tinh túy từ biển cả</h2>
-    <p></p>
-  </section>
+  <section id="intro" class="intro">
+  <h2>🐟 Nước Mắm 584 – Hương vị truyền thống Việt Nam 🇻🇳</h2>
+  <div id="readme-content" style="white-space: pre-wrap; line-height:1.6; font-size:16px; color:#333;">
+    Đang tải nội dung giới thiệu...
+  </div>
+</section>
+
+<script>
+  // Tải nội dung từ readme.txt và hiển thị
+  fetch("readme.txt")
+    .then(response => response.text())
+    .then(text => {
+      document.getElementById("readme-content").textContent = text;
+    })
+    .catch(err => {
+      document.getElementById("readme-content").textContent = "Không thể tải nội dung giới thiệu.";
+      console.error(err);
+    });
+</script>
 
   <section id="sanpham" class="product-section">
     <h2>DANH MỤC SẢN PHẨM</h2>
