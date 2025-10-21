@@ -7,42 +7,115 @@
 }
 
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family: "Arial", sans-serif;
-  background:var(--bg);
-  color:#222;
-  line-height:1.4;
-  padding-bottom:40px;
+
+body {
+  font-family: Arial;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1950&q=80');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
 }
 
 /* Header */
-header{
-  background:var(--accent);
-  color:#fff;
-  padding:14px 16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
+header {
+  position: relative;
+  padding: 20px 40px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  border-bottom: 4px solid rgba(255,255,255,0.5);
+  overflow: hidden;
 }
-header h1{margin:0;font-size:20px}
-nav ul{display:flex;gap:12px;list-style:none;margin:0;padding:0}
-nav a{color:#fff;text-decoration:none}
 
-/* Intro */
-.intro{padding:18px; text-align:center}
-.intro h2{margin:6px 0}
-.intro p{color:var(--muted)}
+/* Hình nền caro xanh nước biển pha tím đen */
+header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(135deg, rgba(0, 70, 140, 0.6) 25%, transparent 25%) -10px 0,
+    linear-gradient(225deg, rgba(0, 70, 140, 0.6) 25%, transparent 25%) -10px 0,
+    linear-gradient(315deg, rgba(80, 0, 100, 0.4) 25%, transparent 25%) 0 0,
+    linear-gradient(45deg, rgba(80, 0, 100, 0.4) 25%, transparent 25%) 0 0;
+  background-size: 40px 40px;
+  background-color: #0e2238; /* xanh nước biển đậm pha tím đen nhẹ */
+  filter: brightness(1.05);
+  z-index: 0;
+}
+
+/* Lớp nội dung header */
+.header-container {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+/* Tiêu đề */
+header h1 {
+  margin: 0;
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #dcd6ff; /* tím nhạt sáng nổi bật */
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5), 0 0 10px rgba(180,180,255,0.6);
+}
+
+/* Menu góc phải */
+header nav {
+  margin-left: auto;
+}
+header nav a {
+  color: #fff;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1em;
+  transition: 0.3s;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
+header nav a:hover {
+  color: #ffeb3b;
+  transform: scale(1.05);
+}
+
+/* Intro / Slogan */
+.intro {
+  padding:18px;
+  text-align:center;
+}
+.intro h2 {
+  margin:6px 0;
+  font-size:1.8em;
+  color:#c0392b;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+.intro p {
+  color:var(--muted);
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
 
 /* Product list */
-.product-section{padding:18px; max-width:1100px;margin:0 auto}
-.product-list{
+.product-section {
+  padding:18px;
+  max-width:1100px;
+  margin:0 auto;
+}
+.product-section h2 {
+  font-size:1.8em;
+  color:#c0392b;
+  text-shadow:2px 2px 4px rgba(0,0,0,0.3);
+  margin-bottom:15px;
+}
+.product-list {
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
   gap:16px;
 }
-.product-card{
+.product-card {
   background:var(--card);
   border-radius:12px;
   padding:12px;
@@ -52,44 +125,44 @@ nav a{color:#fff;text-decoration:none}
   gap:8px;
   cursor:default;
 }
-.product-card img{
+.product-card img {
   width:100%;
   height:170px;
   object-fit:cover;
   border-radius:8px;
 }
-.product-card h3{margin:0;font-size:16px}
-.product-card p{margin:0;color:var(--muted)}
-.product-card .card-actions{
+.product-card h3 {margin:0;font-size:16px}
+.product-card p {margin:0;color:var(--muted)}
+.product-card .card-actions {
   margin-top:auto;
   display:flex;
   gap:8px;
 }
-.button{
+.button {
   padding:8px 10px;
   border:none;
   border-radius:8px;
   cursor:pointer;
   font-weight:600;
 }
-.btn-add{background:var(--accent); color:#fff}
-.btn-detail{background:#eee;color:#222}
+.btn-add {background:var(--accent); color:#fff}
+.btn-detail {background:#eee;color:#222}
 
 /* Modal detail */
-.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.45)}
-.hidden{display:none}
-.modal-content{
-  background:#fff;padding:18px;border-radius:12px;max-width:760px;width:94%;box-shadow:0 10px 30px rgba(0,0,0,0.2);
+.modal {position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.45)}
+.hidden {display:none}
+.modal-content {
+  background:#fff; padding:18px; border-radius:12px; max-width:760px; width:94%; box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
-.modal-content .detail{
-  display:flex;gap:14px;flex-wrap:wrap;
+.modal-content .detail {
+  display:flex; gap:14px; flex-wrap:wrap;
 }
-.detail img{width:320px;height:320px;object-fit:cover;border-radius:8px}
-.detail .info{flex:1}
-.close{float:right;border:none;background:none;font-size:18px;cursor:pointer}
+.detail img {width:320px; height:320px; object-fit:cover; border-radius:8px}
+.detail .info {flex:1}
+.close {float:right; border:none; background:none; font-size:18px; cursor:pointer}
 
 /* Cart / aside */
-.cart-section{
+.cart-section {
   position:fixed;
   right:18px;
   top:88px;
@@ -99,109 +172,46 @@ nav a{color:#fff;text-decoration:none}
   padding:12px;
   box-shadow:0 8px 26px rgba(0,0,0,0.12);
 }
-.cart-section h2{margin:0 0 8px 0;font-size:16px}
-#cart-items{max-height:340px;overflow:auto;margin-bottom:8px}
-.cart-item{display:flex;gap:8px;align-items:center;padding:6px 0;border-bottom:1px dashed #eee}
-.cart-item img{width:50px;height:50px;object-fit:cover;border-radius:6px}
-.cart-item .meta{flex:1}
-.cart-item .meta small{display:block;color:var(--muted)}
-.cart-item .qty{display:flex;gap:6px;align-items:center}
+.cart-section h2 {margin:0 0 8px 0;font-size:16px}
+#cart-items {max-height:340px; overflow:auto; margin-bottom:8px}
+.cart-item {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  padding:6px 0;
+  border-bottom:1px dashed #eee;
+}
+.cart-item img {width:50px; height:50px; object-fit:cover; border-radius:6px}
+.cart-item .meta {flex:1}
+.cart-item .meta small {display:block;color:var(--muted)}
+.cart-item .qty {display:flex; gap:6px; align-items:center}
 
-.cart-summary{display:flex;flex-direction:column;gap:8px}
-#checkout-btn{background:var(--accent);color:#fff;border:none;padding:8px;border-radius:8px;cursor:pointer}
-#clear-btn{background:#eee;border:none;padding:8px;border-radius:8px;cursor:pointer}
+.cart-summary {display:flex; flex-direction:column; gap:8px}
+#checkout-btn {background:var(--accent);color:#fff;border:none;padding:8px;border-radius:8px;cursor:pointer}
+#clear-btn {background:#eee;border:none;padding:8px;border-radius:8px;cursor:pointer}
 
 /* Footer */
-footer{margin-top:40px;padding:14px;text-align:center;color:var(--muted)}
-@media (max-width:900px){
-  .cart-section{position:static;width:auto;margin:12px}
-}
-
-/* Checkout modal đẹp */
-.checkout-field {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 12px;
-}
-
-.checkout-field label {
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.checkout-field input,
-.checkout-field textarea {
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  width: 100%;
-  font-size: 14px;
-  resize: vertical;
-}
-
-.checkout-field textarea {
-  min-height: 60px;
-}
-/* Modal Mua hàng responsive */
-#checkout-modal .modal-content {
-  max-width: 600px; /* Desktop: vừa phải */
-  width: 90%;       /* Mobile: chiếm 90% */
-  max-height: 90vh; /* Giới hạn chiều cao modal */
-  overflow-y: auto; /* Scroll nếu nội dung cao */
-  padding: 20px;
-}
-
-#checkout-modal h2 {
-  margin-top: 0;
-  font-size: 20px;
+footer {
+  background: #f0eefc;
+  color: #3a1f63; /* tím đen sang trọng */
   text-align: center;
+  padding: 15px 0;
+  font-size: 0.95em;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+  border-top: 2px solid rgba(90, 70, 130, 0.3);
 }
 
-#checkout-modal .checkout-field input,
-#checkout-modal .checkout-field textarea {
-  font-size: 15px;
-}
-
-#checkout-modal button {
-  flex: 1;
-}
-
-/* Khi màn hình nhỏ hơn 480px (mobile) */
-@media (max-width: 480px) {
-  #checkout-modal .modal-content {
-    padding: 16px;
-    width: 95%;
-  }
-  
-  #checkout-modal h2 {
-    font-size: 18px;
-  }
-  
-  #checkout-modal .checkout-field input,
-  #checkout-modal .checkout-field textarea {
-    font-size: 14px;
-  }
-  
-  #checkout-modal div[style*="display:flex"] {
-    flex-direction: column;
-  }
-
-  #checkout-modal div[style*="display:flex"] button {
-    width: 100%;
-  }
-}
 /* Checkout modal đẹp */
 .checkout-field {
   display: flex;
   flex-direction: column;
   margin-bottom: 12px;
 }
-
 .checkout-field label {
   font-weight: 600;
   margin-bottom: 4px;
 }
-
 .checkout-field input,
 .checkout-field textarea {
   padding: 8px 10px;
@@ -211,12 +221,9 @@ footer{margin-top:40px;padding:14px;text-align:center;color:var(--muted)}
   font-size: 14px;
   resize: vertical;
 }
+.checkout-field textarea {min-height: 60px}
 
-.checkout-field textarea {
-  min-height: 60px;
-}
-
-/* Responsive */
+/* Modal mua hàng responsive */
 #checkout-modal .modal-content {
   max-width: 600px;
   width: 90%;
@@ -224,15 +231,20 @@ footer{margin-top:40px;padding:14px;text-align:center;color:var(--muted)}
   overflow-y: auto;
   padding: 20px;
 }
+#checkout-modal h2 {text-align:center; font-size:20px}
+#checkout-modal .checkout-field input,
+#checkout-modal .checkout-field textarea {font-size:15px}
+#checkout-modal button {flex:1}
 
-#checkout-modal h2 { text-align:center; }
-
-@media (max-width:480px){
-  #checkout-modal .modal-content { width:95%; padding:16px; }
-  #checkout-modal .checkout-field input, #checkout-modal .checkout-field textarea { font-size:14px; }
-  #checkout-modal div[style*="display:flex"] { flex-direction:column; }
-  #checkout-modal div[style*="display:flex"] button { width:100%; }
+/* Responsive nhỏ hơn 480px */
+@media (max-width:480px) {
+  #checkout-modal .modal-content {width:95%; padding:16px;}
+  #checkout-modal .checkout-field input, #checkout-modal .checkout-field textarea {font-size:14px;}
+  #checkout-modal div[style*="display:flex"] {flex-direction:column;}
+  #checkout-modal div[style*="display:flex"] button {width:100%;}
 }
+
+/* Messenger button */
 .messenger-btn {
   position: fixed;
   bottom: 20px;
@@ -247,7 +259,6 @@ footer{margin-top:40px;padding:14px;text-align:center;color:var(--muted)}
   transition:0.3s;
   z-index:1000;
 }
-
 .messenger-btn:hover {
   background:#005bb5;
   transform:scale(1.05);

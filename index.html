@@ -7,20 +7,21 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <header>
-    <h1>Nước Mắm Truyền Thống 584</h1>
-    <nav>
-      <ul>
-        <li><a href="#">Trang chủ</a></li>
-        <li><a href="#sanpham">Sản phẩm</a></li>
-        <li><a href="#giohang">Giỏ hàng (<span id="cart-count">0</span>)</a></li>
-      </ul>
-    </nav>
+    <div class="header-container">
+      <h1>Nước Mắm 584</h1>
+      <nav>
+        <a href="#">Trang chủ</a>
+        <a href="#">Sản phẩm</a>
+        <a href="#">Giỏ hàng</a>
+      </nav>
+    </div>
   </header>
 
   <section class="intro">
     <h2>Hương vị truyền thống – Tinh túy từ biển cả</h2>
-    <p>Chuyên cung cấp nước mắm nguyên chất Nha Trang, đảm bảo 100% cá cơm tươi.</p>
+    <p></p>
   </section>
 
   <section id="sanpham" class="product-section">
@@ -76,14 +77,72 @@
     </div>
   </aside>
 
-  <footer>
-    <p>© 2025 Nước Mắm 584 Nha Trang | Liên hệ: 090x.xxx.xxx</p>
-  </footer>
+ 
+  <!-- Nút Messenger -->
+  <a href="https://m.me/2416556582093787" target="_blank" class="messenger-btn">
+    💬 Chat với chúng tôi
+  </a>
 
   <script src="script.js"></script>
-  <!-- Nút Messenger -->
-<a href="https://m.me/2416556582093787" target="_blank" class="messenger-btn">
-  💬 Chat với chúng tôi
-</a>
+
+  <!-- ======== FOOTER + CHỐNG COPY ======== -->
+<footer id="footer">
+  <p>Copyright © <span id="year"></span> Nước Mắm 584-Nguyễn Hoàng Hiếu. All rights reserved. LH: 0976786xxx</p>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</footer>
+
+<style>
+  /* ======= Footer style ======= */
+  #footer {
+    background: #c0392b;
+    color: white;
+    text-align: center;
+    padding: 18px 0;
+    margin-top: 40px;
+    font-family: Arial, sans-serif;
+    user-select: none; /* chặn bôi đen */
+    transition: background 0.3s ease;
+  }
+
+  #footer:hover {
+    background: #e74c3c;
+  }
+
+  #footer p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  #footer .sub {
+    color: #ffddcc;
+    font-size: 13px;
+  }
+</style>
+
+<script>
+  // ======== Hiển thị năm hiện tại =========
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // ======== Chống sao chép cơ bản =========
+  // Chặn chuột phải
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
+  // Chặn tổ hợp phím copy, view-source, dev tools
+  document.addEventListener('keydown', e => {
+    if (e.ctrlKey && ['c','u','s','p'].includes(e.key.toLowerCase())) e.preventDefault();
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') e.preventDefault();
+  });
+
+  // Chặn bôi đen chọn chữ
+  document.addEventListener('selectstart', e => e.preventDefault());
+
+  // Chặn kéo ảnh ra ngoài
+  document.addEventListener('dragstart', e => e.preventDefault());
+</script>
+<!-- ======== HẾT PHẦN FOOTER ======== -->
 </body>
 </html>
