@@ -433,8 +433,50 @@ header nav ul li:hover ul {
     font-size: 26px;
     z-index: 999;  /* đảm bảo nằm trên các phần tử khác */
   }
+  /* Ẩn nút giỏ hàng trong header khi mobile */
+
 
   .cart-icon .badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    background: #ff3b30;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Ẩn icon giỏ hàng trong header khi mobile */
+@media (max-width: 768px) {
+  .header .cart-icon {
+    display: none;
+  }
+
+  /* Nút giỏ hàng nổi mobile */
+  .cart-icon-mobile {
+    position: fixed;
+    bottom: 80px;  /* chỉnh cao hơn nút chat */
+    right: 20px;
+    background: #c0392b;
+    color: white;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    font-size: 26px;
+    z-index: 999;
+  }
+
+  .cart-icon-mobile .badge {
     position: absolute;
     top: 6px;
     right: 6px;

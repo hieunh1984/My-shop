@@ -131,12 +131,11 @@ function renderCart() {
   cartTotalEl.textContent = formatVND(total);
   cartCountEl.textContent = ids.reduce((s, k) => s + cart[k], 0);
 
-  // Cập nhật badge giỏ hàng (trên mobile)
-const badge = document.getElementById("cart-count-badge");
-const totalItems = ids.reduce((s, k) => s + cart[k], 0);
-cartCountEl.textContent = totalItems;
-if (badge) {
-  if (totalItems > 0) {
+  // Cập nhật badge giỏ hàng mobile
+const badge = document.querySelector(".cart-icon-mobile .badge");
+const totalItems = Object.values(cart).reduce((a,b)=>a+b,0);
+if(badge){
+  if(totalItems > 0){
     badge.textContent = totalItems;
     badge.classList.remove("hidden");
   } else {
