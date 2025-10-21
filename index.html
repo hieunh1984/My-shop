@@ -6,6 +6,20 @@
   <title>Nước Mắm Truyền Thống 584</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
+<!-- ===== Giỏ hàng kiểu Messenger (chỉ hiện trên mobile) ===== -->
+<div class="cart-button" onclick="toggleCartPopup()">
+  🛒
+  <span id="cart-count">0</span>
+</div>
+
+<div id="cart-popup" class="cart-popup">
+  <h3>Giỏ hàng của bạn</h3>
+  <div id="cart-popup-items"></div>
+  <p>Tổng: <strong id="cart-popup-total">0₫</strong></p>
+  <button onclick="openCheckout()">Mua hàng</button>
+  <button onclick="closeCartPopup()">Đóng</button>
+</div>
 <body>
 
   <header>
@@ -179,6 +193,21 @@
 
   <script src="script.js"></script>
 
+  <script>
+function toggleCartPopup() {
+  const popup = document.getElementById('cart-popup');
+  popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
+}
+
+function closeCartPopup() {
+  document.getElementById('cart-popup').style.display = 'none';
+}
+
+// Gợi ý: Nếu bạn đã có biến giỏ hàng trong script.js, 
+// bạn có thể cập nhật số lượng sản phẩm ở đây như sau:
+// document.getElementById('cart-count').textContent = cart.length;
+</script>
+
   <!-- ======== FOOTER + CHỐNG COPY ======== -->
 <footer id="footer">
   <p>Copyright © <span id="year"></span> Nước Mắm 584-Nguyễn Hoàng Hiếu. All rights reserved. LH: 0976786xxx</p>
@@ -187,6 +216,86 @@
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </footer>
+
+<style>
+/* ===== Giỏ hàng thu gọn kiểu Messenger ===== */
+.cart-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #c0392b;
+  color: white;
+  font-size: 24px;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  cursor: pointer;
+  z-index: 1000;
+}
+
+/* Số lượng sản phẩm */
+.cart-button #cart-count {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: yellow;
+  color: black;
+  font-size: 14px;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+
+/* Hộp popup chi tiết */
+.cart-popup {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  width: 280px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  padding: 15px;
+  display: none;
+  z-index: 999;
+}
+
+.cart-popup h3 {
+  margin-top: 0;
+  color: #c0392b;
+  font-size: 18px;
+}
+
+.cart-popup button {
+  background: #c0392b;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+/* Chỉ hiện kiểu nổi trên màn hình nhỏ (mobile) */
+@media (max-width: 768px) {
+  .cart-section {
+    display: none; /* ẩn phần giỏ hàng gốc */
+  }
+  .cart-button {
+    display: flex;
+  }
+}
+
+@media (min-width: 769px) {
+  .cart-button, .cart-popup {
+    display: none !important; /* ẩn kiểu Messenger khi trên desktop */
+  }
+}
+</style>
 
 <style>
   /* ======= Footer style ======= */
