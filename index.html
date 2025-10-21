@@ -6,8 +6,7 @@
   <title>Nước Mắm Truyền Thống 584</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Bạn có thể gom toàn bộ CSS từ style block này vào style.css */
-    /* ======= Menu dropdown ======= */
+    /* ======= HEADER ======= */
     header {
       position: relative;
       z-index: 100;
@@ -39,14 +38,14 @@
     .dropdown-content {
       display: none;
       position: absolute;
-      top: 100%; /* hiện ngay bên dưới Trang chủ */
+      top: 100%;
       left: 0;
       background-color: #ffffff;
       min-width: 160px;
       box-shadow: 0px 8px 18px rgba(0,0,0,0.15);
       border-radius: 6px;
       overflow: hidden;
-      z-index: 200; /* cao hơn Giỏ hàng */
+      z-index: 200;
     }
 
     .dropdown-content a {
@@ -67,31 +66,17 @@
       display: block;
     }
 
-    /* Nút Trang chủ chính */
-    .nav-main {
+    .nav-main, .nav-cart {
       color: #fff;
       text-decoration: none;
       font-weight: bold;
     }
 
-    .nav-main:hover {
+    .nav-main:hover, .nav-cart:hover {
       color: #ffeb3b;
     }
 
-    /* Nút Giỏ hàng */
-    .nav-cart {
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-      position: relative;
-      top: 2px; /* thụt nhẹ xuống */
-    }
-
-    .nav-cart:hover {
-      color: #ffeb3b;
-    }
-
-    /* ===== Giỏ hàng thu gọn kiểu Messenger ===== */
+    /* ======= GIỎ HÀNG KIỂU MESSENGER ======= */
     .cart-button {
       position: fixed;
       bottom: 20px;
@@ -110,8 +95,7 @@
       z-index: 1000;
     }
 
-    /* Số lượng sản phẩm */
-    .cart-button #cart-count {
+    .cart-button .badge {
       position: absolute;
       top: 8px;
       right: 10px;
@@ -122,7 +106,10 @@
       border-radius: 50%;
     }
 
-    /* Hộp popup chi tiết */
+    .hidden {
+      display: none !important;
+    }
+
     .cart-popup {
       position: fixed;
       bottom: 90px;
@@ -153,23 +140,19 @@
       margin-top: 8px;
     }
 
-    /* Chỉ hiện kiểu nổi trên màn hình nhỏ (mobile) */
     @media (max-width: 768px) {
       .cart-section {
-        display: none; /* ẩn phần giỏ hàng gốc */
-      }
-      .cart-button {
-        display: flex;
+        display: none;
       }
     }
 
     @media (min-width: 769px) {
       .cart-button, .cart-popup {
-        display: none !important; /* ẩn kiểu Messenger khi trên desktop */
+        display: none !important;
       }
     }
 
-    /* ======= Footer style ======= */
+    /* ======= FOOTER ======= */
     #footer {
       background: #c0392b;
       color: white;
@@ -177,7 +160,7 @@
       padding: 18px 0;
       margin-top: 40px;
       font-family: Arial, sans-serif;
-      user-select: none; /* chặn bôi đen */
+      user-select: none;
       transition: background 0.3s ease;
     }
 
@@ -213,12 +196,6 @@
         <a href="#giohang" class="nav-cart">Giỏ hàng</a>
       </nav>
     </div>
-
-    <!-- Ví dụ trong header -->
-    <div class="cart-icon" onclick="openCheckout()">
-      🛒
-      <span id="cart-count-badge" class="badge hidden">0</span>
-    </div>
   </header>
 
   <section id="sanpham" class="product-section">
@@ -226,7 +203,7 @@
     <div id="product-list" class="product-list"></div>
   </section>
 
-  <!-- Modal chi tiết sản phẩm -->
+  <!-- Modal chi tiết -->
   <div id="detail-modal" class="modal hidden" onclick="closeDetail(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
       <button class="close" onclick="closeDetail()">✕</button>
@@ -234,7 +211,7 @@
     </div>
   </div>
 
-  <!-- Modal mua hàng -->
+  <!-- Modal thanh toán -->
   <div id="checkout-modal" class="modal hidden" onclick="closeCheckout(event)">
     <div class="modal-content" onclick="event.stopPropagation()">
       <button class="close" onclick="closeCheckout()">✕</button>
@@ -264,6 +241,7 @@
     </div>
   </div>
 
+  <!-- GIỎ HÀNG -->
   <aside id="giohang" class="cart-section">
     <h2>GIỎ HÀNG CỦA BẠN</h2>
     <div id="cart-items"></div>
@@ -279,13 +257,13 @@
     💬 Chat với chúng tôi
   </a>
 
-  <!-- Nút giỏ hàng nổi (kiểu Messenger) -->
-  <div class="cart-button" onclick="toggleCart()">
+  <!-- Nút giỏ hàng nổi -->
+  <div class="cart-button cart-icon-mobile" onclick="toggleCart()">
     🛒
-    <span id="cart-count">0</span>
+    <span class="badge hidden">0</span>
   </div>
 
-  <!-- Popup giỏ hàng (dành cho mobile) -->
+  <!-- Popup giỏ hàng -->
   <div id="cart-popup" class="cart-popup">
     <h3>Giỏ hàng của bạn</h3>
     <ul id="cart-popup-items">
@@ -295,44 +273,8 @@
   </div>
 
   <footer id="footer">
-    <p>Copyright © <span id="year"></span> Nước Mắm 584 - Nguyễn Hoàng Hiếu. All rights reserved. LH: 0976786xxx</p>
+    <p>Copyright © <span id="year"></span> Nước Mắm 584 - Nguyễn Hoàng Hiếu. All rights reserved.</p>
   </footer>
-
-  <script>
-    // Cuộn về đầu trang
-    function scrollToTop(e) {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Bật tắt popup giỏ hàng kiểu messenger
-    function toggleCart() {
-      const popup = document.getElementById('cart-popup');
-      popup.style.display = (popup.style.display === 'block') ? 'none' : 'block';
-    }
-    function closeCart() {
-      document.getElementById('cart-popup').style.display = 'none';
-    }
-
-    // Hiển thị năm hiện tại
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // ======== Chống sao chép cơ bản =========
-    // Chặn chuột phải
-    document.addEventListener('contextmenu', e => e.preventDefault());
-
-    // Chặn tổ hợp phím copy, view-source, dev tools
-    document.addEventListener('keydown', e => {
-      if (e.ctrlKey && ['c','u','s','p'].includes(e.key.toLowerCase())) e.preventDefault();
-      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') e.preventDefault();
-    });
-
-    // Chặn bôi đen chọn chữ
-    document.addEventListener('selectstart', e => e.preventDefault());
-
-    // Chặn kéo ảnh ra ngoài
-    document.addEventListener('dragstart', e => e.preventDefault());
-  </script>
 
   <script src="script.js" defer></script>
 </body>

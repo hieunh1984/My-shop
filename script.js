@@ -95,7 +95,6 @@ function clearCart() {
 function renderCart() {
   const cartItemsEl = document.getElementById("cart-items");
   const cartTotalEl = document.getElementById("cart-total");
-
   cartItemsEl.innerHTML = "";
   let total = 0;
   const ids = Object.keys(cart);
@@ -116,7 +115,6 @@ function renderCart() {
         <img src="${p.img}" alt="${p.title}">
         <div class="meta">
           <strong>${p.title}</strong>
-          <small>${formatVND(p.price)} × ${qty} = ${formatVND(sub)}</small>
         </div>
         <div class="qty">
           <button onclick="changeQty(${id}, -1)">-</button>
@@ -124,7 +122,6 @@ function renderCart() {
           <button onclick="changeQty(${id}, 1)">+</button>
         </div>
         <div class="cart-actions">
-          <button class="button btn-delivery" onclick="showShippingForm()">Giao hàng</button>
           <button class="button btn-del" onclick="removeFromCart(${id})">Xóa</button>
         </div>
       `;
@@ -136,28 +133,13 @@ function renderCart() {
   updateCartCount();
 }
 
-// Hàm xóa sản phẩm khỏi giỏ hàng
 function removeFromCart(id) {
   delete cart[id];
   renderCart();
 }
 
-// Hàm hiển thị khung Thông tin giao hàng (bạn cần có div #shipping-info trong HTML, mặc định ẩn)
-function showShippingForm() {
-  const shippingInfo = document.getElementById("shipping-info");
-  if (shippingInfo) {
-    shippingInfo.classList.remove("hidden");
-  }
-}
-
 function updateCartCount() {
   const totalItems = Object.values(cart).reduce((a, b) => a + b, 0);
-
-  // Desktop
-  const cartCountEl = document.getElementById("cart-count");
-  if (cartCountEl) cartCountEl.textContent = totalItems;
-
-  // Mobile
   const badge = document.querySelector(".cart-icon-mobile .badge");
   if (badge) {
     if (totalItems > 0) {
@@ -169,7 +151,7 @@ function updateCartCount() {
   }
 }
 
-// ================== MUA HÀNG ==================
+// ================== THANH TOÁN ==================
 function openCheckout() {
   if (Object.keys(cart).length === 0) {
     alert("🛒 Giỏ hàng đang trống.");
@@ -192,64 +174,44 @@ function confirmCheckout() {
   const address = document.getElementById("recipient-address").value.trim();
   const time = document.getElementById("delivery-time").value.trim();
 
-  if (!name || !phone || !address || !time) {
-    alert("Vui lòng điền đầy đủ thông tin giao hàng!");
+  if (!name || !phone || !address) {
+    alert("Vui lòng nhập đầy đủ thông tin giao hàng!");
     return;
   }
 
-  const ids = Object.keys(cart);
-  let total = 0;
-  let lines = [];
-  lines.push("================== HOÁ ĐƠN NƯỚC MẮM 584 =================");
-  lines.push("Thời gian đặt: " + new Date().toLocaleString());
-  lines.push("---------------------------------------------------------");
-  lines.push(`Người nhận: ${name}`);
-  lines.push(`SĐT: ${phone}`);
-  lines.push(`Địa chỉ: ${address}`);
-  lines.push(`Thời gian giao: ${time}`);
-  lines.push("---------------------------------------------------------");
-  lines.push("Tên sản phẩm                 Giá Số lượng Thành tiền");
-  lines.push("---------------------------------------------------------");
-
-  ids.forEach(k => {
-    const id = Number(k);
-    const qty = cart[k];
-    const p = products.find(x => x.id === id);
-    const sub = p.price * qty;
-    total += sub;
-
-    const nameStr = p.title.padEnd(25, " ");
-    const priceStr = (p.price + "k").padStart(7, " ");
-    const qtyStr = (qty + " chai").padStart(8, " ");
-    const subStr = (sub + "k").padStart(10, " ");
-    lines.push(`${nameStr}${priceStr}${qtyStr}${subStr}`);
-  });
-
-  lines.push("---------------------------------------------------------");
-  const vat = total * 0.08;
-  const totalLast = total + vat;
-  lines.push(`Tổng`.padEnd(40) + `${total}k`.padStart(10));
-  lines.push(`VAT (8%)`.padEnd(40) + `${vat.toFixed(0)}k`.padStart(10));
-  lines.push(`Tổng cộng`.padEnd(40) + `${totalLast.toFixed(0)}k`.padStart(10));
-  lines.push("---------------------------------------------------------");
-  lines.push("Cảm ơn quý khách đã mua hàng ❤️");
-  lines.push("=========================================================");
-
-  const blob = new Blob([lines.join("\r\n")], { type: "text/plain;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "hoadon584.txt";
-  a.click();
-  URL.revokeObjectURL(url);
-
-  cart = {}; // reset giỏ
-  renderCart();
+  alert(`✅ Cảm ơn ${name}!\nĐơn hàng của bạn sẽ được giao tới:\n${address}\nThời gian: ${time || 'Sớm nhất có thể.'}`);
   closeCheckout();
+  clearCart();
+}
+
+// ================== NÚT GIỎ HÀNG NỔI ==================
+function toggleCart() {
+  const popup = document.getElementById("cart-popup");
+  const list = document.getElementById("cart-popup-items");
+  const ids = Object.keys(cart);
+  if (ids.length === 0) {
+    list.innerHTML = "<li>Chưa có sản phẩm</li>";
+  } else {
+    list.innerHTML = ids.map(k => {
+      const p = products.find(x => x.id == k);
+      return `<li>${p.title} × ${cart[k]}</li>`;
+    }).join("");
+  }
+  popup.style.display = popup.style.display === "block" ? "none" : "block";
+}
+
+function closeCart() {
+  document.getElementById("cart-popup").style.display = "none";
 }
 
 // ================== KHỞI ĐỘNG ==================
+function scrollToTop(e) {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderProducts();
   renderCart();
+  document.getElementById("year").textContent = new Date().getFullYear();
 });
