@@ -7,12 +7,6 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 
-<!-- ===== Giỏ hàng kiểu Messenger (chỉ hiện trên mobile) ===== -->
-<div class="cart-button" onclick="toggleCartPopup()">
-  🛒
-  <span id="cart-count">0</span>
-</div>
-
 <div id="cart-popup" class="cart-popup">
   <h3>Giỏ hàng của bạn</h3>
   <div id="cart-popup-items"></div>
@@ -20,7 +14,7 @@
   <button onclick="openCheckout()">Mua hàng</button>
   <button onclick="closeCartPopup()">Đóng</button>
 </div>
-<button id="cart-button" class="cart-button">🛒 <span id="cart-count">0</span></button>
+
 
 <!-- Nút giỏ hàng nổi (chỉ mobile) -->
 <div class="cart-icon-mobile" onclick="openCheckout()">

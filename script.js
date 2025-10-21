@@ -8,19 +8,15 @@ const products = [
   { id: 6, code: "20N", price: 22, title: "Nước mắm 584 20°N", img: "https://picsum.photos/id/1035/600/400", desc: "Chai 500ml - Dành cho nấu ăn, tiết kiệm." }
 ];
 
-const productListEl = document.getElementById("product-list");
-const cartCountEl = document.getElementById("cart-count");
-const cartItemsEl = document.getElementById("cart-items");
-const cartTotalEl = document.getElementById("cart-total");
-
 let cart = {}; // { id: qty }
 
 function formatVND(n) {
   return new Intl.NumberFormat('vi-VN').format(n * 1000) + "₫";
 }
 
-// ================== HIỂN THỊ DANH SÁCH SẢN PHẨM ==================
+// ================== HIỂN THỊ SẢN PHẨM ==================
 function renderProducts() {
+  const productListEl = document.getElementById("product-list");
   productListEl.innerHTML = "";
   products.forEach(p => {
     const div = document.createElement("div");
@@ -97,6 +93,9 @@ function clearCart() {
 }
 
 function renderCart() {
+  const cartItemsEl = document.getElementById("cart-items");
+  const cartTotalEl = document.getElementById("cart-total");
+
   cartItemsEl.innerHTML = "";
   let total = 0;
   const ids = Object.keys(cart);
@@ -129,100 +128,52 @@ function renderCart() {
   }
 
   cartTotalEl.textContent = formatVND(total);
-  cartCountEl.textContent = ids.reduce((s, k) => s + cart[k], 0);
+  updateCartCount();
+}
 
-  // Cập nhật badge giỏ hàng mobile
-const badge = document.querySelector(".cart-icon-mobile .badge");
-const totalItems = Object.values(cart).reduce((a,b)=>a+b,0);
-if(badge){
-  if(totalItems > 0){
-    badge.textContent = totalItems;
-    badge.classList.remove("hidden");
-  } else {
-    badge.classList.add("hidden");
+function updateCartCount() {
+  const totalItems = Object.values(cart).reduce((a, b) => a + b, 0);
+
+  // Desktop
+  const cartCountEl = document.getElementById("cart-count");
+  if (cartCountEl) cartCountEl.textContent = totalItems;
+
+  // Mobile
+  const badge = document.querySelector(".cart-icon-mobile .badge");
+  if (badge) {
+    if (totalItems > 0) {
+      badge.textContent = totalItems;
+      badge.classList.remove("hidden");
+    } else {
+      badge.classList.add("hidden");
+    }
   }
 }
-}
 
-// ================== XUẤT HOÁ ĐƠN (canh lề như Go) ==================
-function checkout() {
-  const ids = Object.keys(cart);
-  if (ids.length === 0) {
-    alert("🛒 Giỏ hàng đang trống.");
-    return;
-  }
-
-  let total = 0;
-  let lines = [];
-  lines.push("================== HOÁ ĐƠN NƯỚC MẮM 584 =================");
-  lines.push("Thời gian: " + new Date().toLocaleString());
-  lines.push("---------------------------------------------------------");
-  lines.push("Tên sản phẩm                 Giá Số lượng Thành tiền");
-  lines.push("---------------------------------------------------------");
-
-  ids.forEach(k => {
-    const id = Number(k);
-    const qty = cart[k];
-    const p = products.find(x => x.id === id);
-    const sub = p.price * qty;
-    total += sub;
-
-    // canh lề tương tự fmt.Fprintf
-    const name = p.title.padEnd(25, " ");
-    const price = (p.price + "k").padStart(7, " ");
-    const qtyStr = (qty + " chai").padStart(8, " ");
-    const subStr = (sub + "k").padStart(10, " ");
-    lines.push(`${name}${price}${qtyStr}${subStr}`);
-  });
-
-  lines.push("---------------------------------------------------------");
-  const vat = total * 0.08;
-  const totalLast = total + vat;
-  lines.push(`Tổng`.padEnd(40) + `${total}k`.padStart(10));
-  lines.push(`VAT (8%)`.padEnd(40) + `${vat.toFixed(0)}k`.padStart(10));
-  lines.push(`Tổng cộng`.padEnd(40) + `${totalLast.toFixed(0)}k`.padStart(10));
-  lines.push("---------------------------------------------------------");
-  lines.push("Cảm ơn quý khách đã mua hàng ❤️");
-  lines.push("=========================================================");
-
-  const blob = new Blob([lines.join("\r\n")], { type: "text/plain;charset=utf-8" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "hoadon584.txt";
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
-// ================== KHỞI ĐỘNG ==================
-renderProducts();
-renderCart();
-// Mở modal mua hàng
+// ================== MUA HÀNG ==================
 function openCheckout() {
-  if(Object.keys(cart).length === 0) {
+  if (Object.keys(cart).length === 0) {
     alert("🛒 Giỏ hàng đang trống.");
     return;
   }
   document.getElementById("checkout-modal").classList.remove("hidden");
 }
 
-// Đóng modal
 function closeCheckout(e) {
-  if(e && e.target && e.target.classList.contains('modal')) {
+  if (e && e.target && e.target.classList.contains('modal')) {
     document.getElementById("checkout-modal").classList.add("hidden");
     return;
   }
   document.getElementById("checkout-modal").classList.add("hidden");
 }
 
-// Xác nhận mua hàng và xuất TXT
 function confirmCheckout() {
   const name = document.getElementById("recipient-name").value.trim();
   const phone = document.getElementById("recipient-phone").value.trim();
   const address = document.getElementById("recipient-address").value.trim();
   const time = document.getElementById("delivery-time").value.trim();
 
-  if(!name || !phone || !address || !time){
+  if (!name || !phone || !address || !time) {
     alert("Vui lòng điền đầy đủ thông tin giao hàng!");
     return;
   }
@@ -248,10 +199,10 @@ function confirmCheckout() {
     const sub = p.price * qty;
     total += sub;
 
-    const nameStr = p.title.padEnd(25," ");
-    const priceStr = (p.price+"k").padStart(7," ");
-    const qtyStr = (qty+" chai").padStart(8," ");
-    const subStr = (sub+"k").padStart(10," ");
+    const nameStr = p.title.padEnd(25, " ");
+    const priceStr = (p.price + "k").padStart(7, " ");
+    const qtyStr = (qty + " chai").padStart(8, " ");
+    const subStr = (sub + "k").padStart(10, " ");
     lines.push(`${nameStr}${priceStr}${qtyStr}${subStr}`);
   });
 
@@ -265,7 +216,7 @@ function confirmCheckout() {
   lines.push("Cảm ơn quý khách đã mua hàng ❤️");
   lines.push("=========================================================");
 
-  const blob = new Blob([lines.join("\r\n")], {type:"text/plain;charset=utf-8"});
+  const blob = new Blob([lines.join("\r\n")], { type: "text/plain;charset=utf-8" });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
@@ -277,3 +228,9 @@ function confirmCheckout() {
   renderCart();
   closeCheckout();
 }
+
+// ================== KHỞI ĐỘNG ==================
+document.addEventListener("DOMContentLoaded", () => {
+  renderProducts();
+  renderCart();
+});
