@@ -107,10 +107,11 @@ function renderCart() {
       const id = Number(k);
       const qty = cart[k];
       const p = products.find(x => x.id === id);
-      const item = document.createElement("div");
-      item.className = "cart-item";
       const sub = p.price * qty;
       total += sub;
+
+      const item = document.createElement("div");
+      item.className = "cart-item";
       item.innerHTML = `
         <img src="${p.img}" alt="${p.title}">
         <div class="meta">
@@ -122,6 +123,10 @@ function renderCart() {
           <div>${qty}</div>
           <button onclick="changeQty(${id}, 1)">+</button>
         </div>
+        <div class="cart-actions">
+          <button class="button btn-delivery" onclick="showShippingForm()">Giao hàng</button>
+          <button class="button btn-del" onclick="removeFromCart(${id})">Xóa</button>
+        </div>
       `;
       cartItemsEl.appendChild(item);
     });
@@ -129,6 +134,20 @@ function renderCart() {
 
   cartTotalEl.textContent = formatVND(total);
   updateCartCount();
+}
+
+// Hàm xóa sản phẩm khỏi giỏ hàng
+function removeFromCart(id) {
+  delete cart[id];
+  renderCart();
+}
+
+// Hàm hiển thị khung Thông tin giao hàng (bạn cần có div #shipping-info trong HTML, mặc định ẩn)
+function showShippingForm() {
+  const shippingInfo = document.getElementById("shipping-info");
+  if (shippingInfo) {
+    shippingInfo.classList.remove("hidden");
+  }
 }
 
 function updateCartCount() {

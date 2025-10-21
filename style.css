@@ -285,7 +285,7 @@ header nav ul li:hover ul {
 .cart-section {
   position: fixed;
   right: 18px;
-  top: 140px; /* ↓ từ 120px -> 140px */
+  top: 150px; /* ↓ từ 120px -> 140px */
   width: 300px;
   background: #fff;
   border-radius: 12px;
@@ -412,7 +412,7 @@ header nav ul li:hover ul {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* Nút giỏ hàng nổi (mobile) */

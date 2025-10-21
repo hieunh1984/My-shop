@@ -5,141 +5,222 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nước Mắm Truyền Thống 584</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Bạn có thể gom toàn bộ CSS từ style block này vào style.css */
+    /* ======= Menu dropdown ======= */
+    header {
+      position: relative;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #c0392b;
+      padding: 10px 20px;
+    }
+
+    h1 {
+      color: #fff;
+      margin: 0;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%; /* hiện ngay bên dưới Trang chủ */
+      left: 0;
+      background-color: #ffffff;
+      min-width: 160px;
+      box-shadow: 0px 8px 18px rgba(0,0,0,0.15);
+      border-radius: 6px;
+      overflow: hidden;
+      z-index: 200; /* cao hơn Giỏ hàng */
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 10px 14px;
+      text-decoration: none;
+      display: block;
+      text-align: left;
+      font-weight: 600;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f0f0f0;
+      color: #c0392b;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* Nút Trang chủ chính */
+    .nav-main {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .nav-main:hover {
+      color: #ffeb3b;
+    }
+
+    /* Nút Giỏ hàng */
+    .nav-cart {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      top: 2px; /* thụt nhẹ xuống */
+    }
+
+    .nav-cart:hover {
+      color: #ffeb3b;
+    }
+
+    /* ===== Giỏ hàng thu gọn kiểu Messenger ===== */
+    .cart-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #c0392b;
+      color: white;
+      font-size: 24px;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    /* Số lượng sản phẩm */
+    .cart-button #cart-count {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      background: yellow;
+      color: black;
+      font-size: 14px;
+      padding: 2px 6px;
+      border-radius: 50%;
+    }
+
+    /* Hộp popup chi tiết */
+    .cart-popup {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      width: 280px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      padding: 15px;
+      display: none;
+      z-index: 999;
+    }
+
+    .cart-popup h3 {
+      margin-top: 0;
+      color: #c0392b;
+      font-size: 18px;
+    }
+
+    .cart-popup button {
+      background: #c0392b;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    /* Chỉ hiện kiểu nổi trên màn hình nhỏ (mobile) */
+    @media (max-width: 768px) {
+      .cart-section {
+        display: none; /* ẩn phần giỏ hàng gốc */
+      }
+      .cart-button {
+        display: flex;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .cart-button, .cart-popup {
+        display: none !important; /* ẩn kiểu Messenger khi trên desktop */
+      }
+    }
+
+    /* ======= Footer style ======= */
+    #footer {
+      background: #c0392b;
+      color: white;
+      text-align: center;
+      padding: 18px 0;
+      margin-top: 40px;
+      font-family: Arial, sans-serif;
+      user-select: none; /* chặn bôi đen */
+      transition: background 0.3s ease;
+    }
+
+    #footer:hover {
+      background: #e74c3c;
+    }
+
+    #footer p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    #footer .sub {
+      color: #ffddcc;
+      font-size: 13px;
+    }
+  </style>
 </head>
-
-<div id="cart-popup" class="cart-popup">
-  <h3>Giỏ hàng của bạn</h3>
-  <div id="cart-popup-items"></div>
-  <p>Tổng: <strong id="cart-popup-total">0₫</strong></p>
-  <button onclick="openCheckout()">Mua hàng</button>
-  <button onclick="closeCartPopup()">Đóng</button>
-</div>
-
-
-<!-- Nút giỏ hàng nổi (chỉ mobile) -->
-<div class="cart-icon-mobile" onclick="openCheckout()">
-  🛒
-  <span class="badge hidden">0</span>
-</div>
 <body>
 
   <header>
-  <div class="header-container">
-    <h1>Nước Mắm 584</h1>
-    <nav>
-      <div class="dropdown">
-        <a href="#" class="nav-main" onclick="scrollToTop(event)">Trang chủ ▾</a>
-        <div class="dropdown-content">
-          <a href="readme.html" target="_blank">Giới thiệu</a>
-          <a href="#sanpham">Sản phẩm</a>
+    <div class="header-container">
+      <h1>Nước Mắm 584</h1>
+      <nav>
+        <div class="dropdown">
+          <a href="#" class="nav-main" onclick="scrollToTop(event)">Trang chủ ▾</a>
+          <div class="dropdown-content">
+            <a href="readme.html" target="_blank">Giới thiệu</a>
+            <a href="#sanpham">Sản phẩm</a>
+          </div>
         </div>
-      </div>
-      <a href="#giohang" class="nav-cart">Giỏ hàng</a>
-    </nav>
-  </div>
+        <a href="#giohang" class="nav-cart">Giỏ hàng</a>
+      </nav>
+    </div>
 
-  <!-- Ví dụ trong header -->
-<div class="cart-icon" onclick="openCheckout()">
-  🛒
-  <span id="cart-count-badge" class="badge hidden">0</span>
-</div>
-</header>
+    <!-- Ví dụ trong header -->
+    <div class="cart-icon" onclick="openCheckout()">
+      🛒
+      <span id="cart-count-badge" class="badge hidden">0</span>
+    </div>
+  </header>
 
-
-<script>
-  // Cuộn về đầu trang
-  function scrollToTop(e) {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-</script>
-<style>
-  /* ======= Menu dropdown ======= */
-  header {
-    position: relative;
-    z-index: 100;
-  }
-
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #c0392b;
-    padding: 10px 20px;
-  }
-
-  h1 {
-    color: #fff;
-    margin: 0;
-  }
-
-  nav {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-  }
-
-  .dropdown {
-    position: relative;
-  }
-
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    top: 100%; /* hiện ngay bên dưới Trang chủ */
-    left: 0;
-    background-color: #ffffff;
-    min-width: 160px;
-    box-shadow: 0px 8px 18px rgba(0,0,0,0.15);
-    border-radius: 6px;
-    overflow: hidden;
-    z-index: 200; /* cao hơn Giỏ hàng */
-  }
-
-  .dropdown-content a {
-    color: #333;
-    padding: 10px 14px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-    font-weight: 600;
-  }
-
-  .dropdown-content a:hover {
-    background-color: #f0f0f0;
-    color: #c0392b;
-  }
-
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-
-  /* Nút Trang chủ chính */
-  .nav-main {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-  }
-
-  .nav-main:hover {
-    color: #ffeb3b;
-  }
-
-  /* Nút Giỏ hàng */
-  .nav-cart {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    position: relative;
-    top: 2px; /* thụt nhẹ xuống */
-  }
-
-  .nav-cart:hover {
-    color: #ffeb3b;
-  }
-</style>
-
-  
   <section id="sanpham" class="product-section">
     <h2>DANH MỤC SẢN PHẨM</h2>
     <div id="product-list" class="product-list"></div>
@@ -193,191 +274,66 @@
     </div>
   </aside>
 
- 
   <!-- Nút Messenger -->
   <a href="https://m.me/2416556582093787" target="_blank" class="messenger-btn">
     💬 Chat với chúng tôi
   </a>
 
-  <!-- Nút giỏ hàng nổi -->
-<div class="cart-button" onclick="toggleCart()">
-  🛒
-  <span id="cart-count">0</span>
-</div>
+  <!-- Nút giỏ hàng nổi (kiểu Messenger) -->
+  <div class="cart-button" onclick="toggleCart()">
+    🛒
+    <span id="cart-count">0</span>
+  </div>
 
-<!-- Popup giỏ hàng (dành cho mobile) -->
-<div id="cart-popup" class="cart-popup">
-  <h3>Giỏ hàng của bạn</h3>
-  <ul id="cart-popup-items">
-    <li>Chưa có sản phẩm</li>
-  </ul>
-  <button onclick="closeCart()">Đóng</button>
-</div>
+  <!-- Popup giỏ hàng (dành cho mobile) -->
+  <div id="cart-popup" class="cart-popup">
+    <h3>Giỏ hàng của bạn</h3>
+    <ul id="cart-popup-items">
+      <li>Chưa có sản phẩm</li>
+    </ul>
+    <button onclick="closeCart()">Đóng</button>
+  </div>
 
-<script>
-function toggleCart() {
-  const popup = document.getElementById('cart-popup');
-  popup.style.display = (popup.style.display === 'block') ? 'none' : 'block';
-}
-function closeCart() {
-  document.getElementById('cart-popup').style.display = 'none';
-}
-</script>
-  <script src="script.js"></script>
+  <footer id="footer">
+    <p>Copyright © <span id="year"></span> Nước Mắm 584 - Nguyễn Hoàng Hiếu. All rights reserved. LH: 0976786xxx</p>
+  </footer>
 
   <script>
-function toggleCartPopup() {
-  const popup = document.getElementById('cart-popup');
-  popup.style.display = popup.style.display === 'block' ? 'none' : 'block';
-}
+    // Cuộn về đầu trang
+    function scrollToTop(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-function closeCartPopup() {
-  document.getElementById('cart-popup').style.display = 'none';
-}
+    // Bật tắt popup giỏ hàng kiểu messenger
+    function toggleCart() {
+      const popup = document.getElementById('cart-popup');
+      popup.style.display = (popup.style.display === 'block') ? 'none' : 'block';
+    }
+    function closeCart() {
+      document.getElementById('cart-popup').style.display = 'none';
+    }
 
-// Gợi ý: Nếu bạn đã có biến giỏ hàng trong script.js, 
-// bạn có thể cập nhật số lượng sản phẩm ở đây như sau:
-// document.getElementById('cart-count').textContent = cart.length;
-</script>
-
-  <!-- ======== FOOTER + CHỐNG COPY ======== -->
-<footer id="footer">
-  <p>Copyright © <span id="year"></span> Nước Mắm 584-Nguyễn Hoàng Hiếu. All rights reserved. LH: 0976786xxx</p>
-
-  <script>
+    // Hiển thị năm hiện tại
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // ======== Chống sao chép cơ bản =========
+    // Chặn chuột phải
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Chặn tổ hợp phím copy, view-source, dev tools
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey && ['c','u','s','p'].includes(e.key.toLowerCase())) e.preventDefault();
+      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') e.preventDefault();
+    });
+
+    // Chặn bôi đen chọn chữ
+    document.addEventListener('selectstart', e => e.preventDefault());
+
+    // Chặn kéo ảnh ra ngoài
+    document.addEventListener('dragstart', e => e.preventDefault());
   </script>
-</footer>
 
-<style>
-/* ===== Giỏ hàng thu gọn kiểu Messenger ===== */
-.cart-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: #c0392b;
-  color: white;
-  font-size: 24px;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-  cursor: pointer;
-  z-index: 1000;
-}
-
-/* Số lượng sản phẩm */
-.cart-button #cart-count {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  background: yellow;
-  color: black;
-  font-size: 14px;
-  padding: 2px 6px;
-  border-radius: 50%;
-}
-
-/* Hộp popup chi tiết */
-.cart-popup {
-  position: fixed;
-  bottom: 90px;
-  right: 20px;
-  background: #fff;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  width: 280px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-  padding: 15px;
-  display: none;
-  z-index: 999;
-}
-
-.cart-popup h3 {
-  margin-top: 0;
-  color: #c0392b;
-  font-size: 18px;
-}
-
-.cart-popup button {
-  background: #c0392b;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  width: 100%;
-  margin-top: 8px;
-}
-
-/* Chỉ hiện kiểu nổi trên màn hình nhỏ (mobile) */
-@media (max-width: 768px) {
-  .cart-section {
-    display: none; /* ẩn phần giỏ hàng gốc */
-  }
-  .cart-button {
-    display: flex;
-  }
-}
-
-@media (min-width: 769px) {
-  .cart-button, .cart-popup {
-    display: none !important; /* ẩn kiểu Messenger khi trên desktop */
-  }
-}
-</style>
-
-<style>
-  /* ======= Footer style ======= */
-  #footer {
-    background: #c0392b;
-    color: white;
-    text-align: center;
-    padding: 18px 0;
-    margin-top: 40px;
-    font-family: Arial, sans-serif;
-    user-select: none; /* chặn bôi đen */
-    transition: background 0.3s ease;
-  }
-
-  #footer:hover {
-    background: #e74c3c;
-  }
-
-  #footer p {
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  #footer .sub {
-    color: #ffddcc;
-    font-size: 13px;
-  }
-</style>
-
-<script>
-  // ======== Hiển thị năm hiện tại =========
-  document.getElementById("year").textContent = new Date().getFullYear();
-
-  // ======== Chống sao chép cơ bản =========
-  // Chặn chuột phải
-  document.addEventListener('contextmenu', e => e.preventDefault());
-
-  // Chặn tổ hợp phím copy, view-source, dev tools
-  document.addEventListener('keydown', e => {
-    if (e.ctrlKey && ['c','u','s','p'].includes(e.key.toLowerCase())) e.preventDefault();
-    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') e.preventDefault();
-  });
-
-  // Chặn bôi đen chọn chữ
-  document.addEventListener('selectstart', e => e.preventDefault());
-
-  // Chặn kéo ảnh ra ngoài
-  document.addEventListener('dragstart', e => e.preventDefault());
-</script>
-<!-- ======== HẾT PHẦN FOOTER ======== -->
+  <script src="script.js" defer></script>
 </body>
 </html>
