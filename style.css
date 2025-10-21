@@ -388,3 +388,64 @@ header nav ul li:hover ul {
   .cart-section { display: none; } /* Ẩn khung to */
   .cart-button { display: flex; }  /* Hiện nút tròn */
 }
+
+.cart-icon {
+  position: relative;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Nút giỏ hàng nổi (mobile) */
+@media (max-width: 768px) {
+  .cart-icon {
+    position: fixed;
+    bottom: 80px;  /* chỉnh cao hơn nút chat (thường chat nằm ~20–50px) */
+    right: 20px;
+    background: #c0392b;
+    color: white;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    font-size: 26px;
+    z-index: 999;  /* đảm bảo nằm trên các phần tử khác */
+  }
+
+  .cart-icon .badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    background: #ff3b30;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

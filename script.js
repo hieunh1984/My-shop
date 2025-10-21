@@ -1,22 +1,3 @@
-// ================== GIỎ HÀNG NÚT TRÒN (THU GỌN KIỂU MESSENGER) ==================
-document.addEventListener("DOMContentLoaded", () => {
-  // Nếu chưa có nút thì tự tạo
-  if (!document.getElementById("cart-button")) {
-    const btn = document.createElement("button");
-    btn.id = "cart-button";
-    btn.className = "cart-button";
-    btn.innerHTML = '🛒 <span id="cart-count">0</span>';
-    document.body.appendChild(btn);
-  }
-
-  // Gán sự kiện click: ẩn/hiện giỏ hàng chi tiết
-  const cartBtn = document.getElementById("cart-button");
-  const cartBox = document.querySelector(".cart-section");
-  cartBtn.addEventListener("click", () => {
-    cartBox.classList.toggle("hidden");
-  });
-});
-
 // ================== DỮ LIỆU SẢN PHẨM ==================
 const products = [
   { id: 1, code: "60N", price: 55, title: "Nước mắm 584 60°N", img: "https://picsum.photos/id/1025/600/400", desc: "Chai 300ml - Đậm đặc, phù hợp nấu ăn và chấm." },
@@ -148,13 +129,23 @@ function renderCart() {
   }
 
   cartTotalEl.textContent = formatVND(total);
+  cartCountEl.textContent = ids.reduce((s, k) => s + cart[k], 0);
 
-  // Cập nhật số lượng trên nút tròn 🛒
-  const count = ids.reduce((s, k) => s + cart[k], 0);
-  if (cartCountEl) cartCountEl.textContent = count;
+  // Cập nhật badge giỏ hàng (trên mobile)
+const badge = document.getElementById("cart-count-badge");
+const totalItems = ids.reduce((s, k) => s + cart[k], 0);
+cartCountEl.textContent = totalItems;
+if (badge) {
+  if (totalItems > 0) {
+    badge.textContent = totalItems;
+    badge.classList.remove("hidden");
+  } else {
+    badge.classList.add("hidden");
+  }
+}
 }
 
-// ================== XUẤT HOÁ ĐƠN (TXT) ==================
+// ================== XUẤT HOÁ ĐƠN (canh lề như Go) ==================
 function checkout() {
   const ids = Object.keys(cart);
   if (ids.length === 0) {
@@ -177,6 +168,7 @@ function checkout() {
     const sub = p.price * qty;
     total += sub;
 
+    // canh lề tương tự fmt.Fprintf
     const name = p.title.padEnd(25, " ");
     const price = (p.price + "k").padStart(7, " ");
     const qtyStr = (qty + " chai").padStart(8, " ");
@@ -206,8 +198,7 @@ function checkout() {
 // ================== KHỞI ĐỘNG ==================
 renderProducts();
 renderCart();
-
-// ================== CHECKOUT FORM ==================
+// Mở modal mua hàng
 function openCheckout() {
   if(Object.keys(cart).length === 0) {
     alert("🛒 Giỏ hàng đang trống.");
@@ -216,6 +207,7 @@ function openCheckout() {
   document.getElementById("checkout-modal").classList.remove("hidden");
 }
 
+// Đóng modal
 function closeCheckout(e) {
   if(e && e.target && e.target.classList.contains('modal')) {
     document.getElementById("checkout-modal").classList.add("hidden");
@@ -224,6 +216,7 @@ function closeCheckout(e) {
   document.getElementById("checkout-modal").classList.add("hidden");
 }
 
+// Xác nhận mua hàng và xuất TXT
 function confirmCheckout() {
   const name = document.getElementById("recipient-name").value.trim();
   const phone = document.getElementById("recipient-phone").value.trim();

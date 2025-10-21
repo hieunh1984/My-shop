@@ -20,7 +20,6 @@
   <button onclick="openCheckout()">Mua hàng</button>
   <button onclick="closeCartPopup()">Đóng</button>
 </div>
-
 <button id="cart-button" class="cart-button">🛒 <span id="cart-count">0</span></button>
 <body>
 
@@ -38,7 +37,14 @@
       <a href="#giohang" class="nav-cart">Giỏ hàng</a>
     </nav>
   </div>
+
+  <!-- Ví dụ trong header -->
+<div class="cart-icon" onclick="openCheckout()">
+  🛒
+  <span id="cart-count-badge" class="badge hidden">0</span>
+</div>
 </header>
+
 
 <script>
   // Cuộn về đầu trang
