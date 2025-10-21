@@ -21,12 +21,12 @@ function renderProducts() {
   `).join("");
 }
 
-// ================== GIỎ HÀNG (DESKTOP) ==================
+// ================== GIỎ HÀNG ==================
 function addToCart(id) {
   cart[id] = (cart[id] || 0) + 1;
   renderCart();
   updateBadge();
-  updateCartPopup(); // ✅ cập nhật popup mobile
+  updateCartPopup();
 }
 
 function renderCart() {
@@ -79,12 +79,11 @@ function updateBadge() {
   badge.classList.toggle("hidden", count === 0);
 }
 
-// ================== GIỎ HÀNG MOBILE (POPUP) ==================
+// ================== POPUP GIỎ HÀNG MOBILE ==================
 function toggleCart() {
   const popup = document.getElementById("cart-popup");
-  const isVisible = popup.style.display === "block";
-  popup.style.display = isVisible ? "none" : "block";
-  updateCartPopup(); // ✅ luôn cập nhật khi mở
+  popup.style.display = popup.style.display === "block" ? "none" : "block";
+  updateCartPopup();
 }
 
 function closeCart() {
@@ -92,36 +91,34 @@ function closeCart() {
 }
 
 function updateCartPopup() {
-  const container = document.getElementById("cart-popup-items");
-  if (!container) return;
+  const list = document.getElementById("cart-popup-items");
+  const totalDisplay = document.getElementById("cart-popup-total");
+  if (!list || !totalDisplay) return;
 
   const ids = Object.keys(cart);
   if (ids.length === 0) {
-    container.innerHTML = "<p>Chưa có sản phẩm trong giỏ.</p>";
+    list.innerHTML = "<li>Chưa có sản phẩm trong giỏ.</li>";
+    totalDisplay.textContent = "0₫";
     return;
   }
 
   let total = 0;
-  container.innerHTML = ids.map(k => {
+  list.innerHTML = ids.map(k => {
     const p = products.find(x => x.id == k);
-    total += p.price * cart[k];
+    const lineTotal = p.price * cart[k];
+    total += lineTotal;
     return `
-      <div class="cart-item">
-        <strong>${p.title}</strong>
-        <div class="cart-controls">
+      <li class="cart-item">
+        <div>
+          <strong>${p.title}</strong><br>
           <span>Số lượng: ${cart[k]}</span>
-          <button onclick="removeItem(${p.id})">Xóa</button>
         </div>
-      </div>
+        <button onclick="removeItem(${p.id})">Xóa</button>
+      </li>
     `;
   }).join("");
 
-  container.innerHTML += `
-    <hr>
-    <p><strong>Tổng tiền:</strong> ${total.toLocaleString()}₫</p>
-    <button onclick="openCheckout()">Mua hàng</button>
-    <button onclick="clearCart()">Xóa giỏ hàng</button>
-  `;
+  totalDisplay.textContent = total.toLocaleString() + "₫";
 }
 
 // ================== THANH TOÁN ==================
@@ -131,45 +128,11 @@ function openCheckout() {
     alert("Giỏ hàng trống!");
     return;
   }
-  document.getElementById("checkout-modal").classList.remove("hidden");
+  alert("🛒 Mở form thông tin giao hàng (bạn có thể thêm modal nếu muốn).");
 }
 
 function closeCheckout() {
   document.getElementById("checkout-modal").classList.add("hidden");
-}
-
-function confirmCheckout() {
-  const name = document.getElementById("recipient-name").value.trim();
-  const phone = document.getElementById("recipient-phone").value.trim();
-  const address = document.getElementById("recipient-address").value.trim();
-  const time = document.getElementById("delivery-time").value;
-
-  if (!name || !phone || !address) {
-    alert("Vui lòng nhập đầy đủ thông tin giao hàng!");
-    return;
-  }
-
-  alert(`✅ Cảm ơn ${name}!\nĐơn hàng của bạn sẽ được giao tới:\n${address}\nThời gian: ${time || 'Sớm nhất có thể.'}`);
-  closeCheckout();
-  clearCart();
-}
-
-// ================== CHI TIẾT SẢN PHẨM ==================
-function openDetail(id) {
-  const product = products.find(p => p.id === id);
-  const body = document.getElementById("detail-body");
-  body.innerHTML = `
-    <img src="${product.img}" alt="${product.title}">
-    <h2>${product.title}</h2>
-    <p>${product.desc}</p>
-    <p><strong>${product.price.toLocaleString()}₫</strong></p>
-    <button onclick="addToCart(${product.id})">Thêm vào giỏ</button>
-  `;
-  document.getElementById("detail-modal").classList.remove("hidden");
-}
-
-function closeDetail() {
-  document.getElementById("detail-modal").classList.add("hidden");
 }
 
 // ================== KHỞI ĐỘNG ==================

@@ -130,14 +130,60 @@
       font-size: 18px;
     }
 
-    .cart-popup button {
+    .cart-popup ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .cart-popup .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      padding: 6px 0;
+    }
+
+    .cart-popup .cart-item button {
       background: #c0392b;
       color: white;
       border: none;
-      padding: 8px 12px;
-      border-radius: 6px;
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+
+    .cart-popup-actions {
+      border-top: 1px solid #ccc;
+      margin-top: 10px;
+      padding-top: 8px;
+    }
+
+    .cart-popup-actions p {
+      margin: 4px 0;
+      font-weight: bold;
+    }
+
+    .cart-popup-actions button {
       width: 100%;
-      margin-top: 8px;
+      padding: 8px;
+      margin-top: 6px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .cart-popup-actions button:first-of-type {
+      background: #c0392b;
+      color: #fff;
+    }
+
+    .cart-popup-actions button:last-of-type {
+      background: #999;
+      color: #fff;
     }
 
     @media (max-width: 768px) {
@@ -203,45 +249,7 @@
     <div id="product-list" class="product-list"></div>
   </section>
 
-  <!-- Modal chi tiết -->
-  <div id="detail-modal" class="modal hidden" onclick="closeDetail(event)">
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <button class="close" onclick="closeDetail()">✕</button>
-      <div id="detail-body"></div>
-    </div>
-  </div>
-
-  <!-- Modal thanh toán -->
-  <div id="checkout-modal" class="modal hidden" onclick="closeCheckout(event)">
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <button class="close" onclick="closeCheckout()">✕</button>
-      <div id="checkout-body">
-        <h2>Thông tin giao hàng</h2>
-        <div class="checkout-field">
-          <label>Họ và tên người nhận:</label>
-          <input type="text" id="recipient-name" placeholder="Nguyễn Văn A" />
-        </div>
-        <div class="checkout-field">
-          <label>Số điện thoại:</label>
-          <input type="text" id="recipient-phone" placeholder="090xxxxxxx" />
-        </div>
-        <div class="checkout-field">
-          <label>Địa chỉ giao hàng:</label>
-          <textarea id="recipient-address" placeholder="Số nhà, đường, phường, quận, thành phố"></textarea>
-        </div>
-        <div class="checkout-field">
-          <label>Thời gian giao:</label>
-          <input type="datetime-local" id="delivery-time" />
-        </div>
-        <div style="margin-top:16px; display:flex; gap:12px;">
-          <button class="button btn-add" onclick="confirmCheckout()">Đồng ý giao</button>
-          <button class="button btn-detail" onclick="closeCheckout()">Quay lại giỏ hàng</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- GIỎ HÀNG -->
+  <!-- GIỎ HÀNG WEB -->
   <aside id="giohang" class="cart-section">
     <h2>GIỎ HÀNG CỦA BẠN</h2>
     <div id="cart-items"></div>
@@ -252,24 +260,23 @@
     </div>
   </aside>
 
-  <!-- Nút Messenger -->
-  <a href="https://m.me/2416556582093787" target="_blank" class="messenger-btn">
-    💬 Chat với chúng tôi
-  </a>
-
-  <!-- Nút giỏ hàng nổi -->
+  <!-- Nút giỏ hàng nổi (Mobile) -->
   <div class="cart-button cart-icon-mobile" onclick="toggleCart()">
     🛒
     <span class="badge hidden">0</span>
   </div>
 
-  <!-- Popup giỏ hàng -->
+  <!-- Popup giỏ hàng (Mobile) -->
   <div id="cart-popup" class="cart-popup">
     <h3>Giỏ hàng của bạn</h3>
     <ul id="cart-popup-items">
       <li>Chưa có sản phẩm</li>
     </ul>
-    <button onclick="closeCart()">Đóng</button>
+    <div class="cart-popup-actions">
+      <p><strong>Tổng tiền:</strong> <span id="cart-popup-total">0₫</span></p>
+      <button onclick="openCheckout()">Mua hàng</button>
+      <button onclick="closeCart()">Đóng</button>
+    </div>
   </div>
 
   <footer id="footer">
