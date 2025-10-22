@@ -13,9 +13,9 @@ Nước mắm 584 Nha Trang được chế biến từ nguyên liệu cá cơm �
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 🥢 SẢN PHẨM TIÊU BIỂU
-1️⃣ Nước mắm 584 40°N – Hương vị nhẹ, thích hợp dùng hàng ngày.  
-2️⃣ Nước mắm 584 20°N – Đậm đà cho món kho, chiên, nướng.  
-3️⃣ Nước mắm 584 60°N – Tinh túy nhất.
+1️⃣ Nước mắm nhĩ đặc biệt 40°N (500ml) – Tinh túy giọt nhĩ đầu tiên.  
+2️⃣ Nước mắm 584 Gold 60°N (200ml) – Dành cho bữa ăn sang trọng.  
+3️⃣ ước mắm 584 truyền thống 20°N (500ml) – Hương vị nhẹ, phù hợp nấu ăn hàng ngày.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📦 DỊCH VỤ VÀ GIAO HÀNG
@@ -29,9 +29,9 @@ Nước mắm 584 Nha Trang được chế biến từ nguyên liệu cá cơm �
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📞 LIÊN HỆ
-🏠 Địa chỉ: 1210 Lê Hồng Phong, phường Nam Nha Trang, tỉnh Khánh Hòa
-📱 Điện thoại: 0976 786 xxx  
-💬 Messenger: https://m.me/2416556582093787  
+🏠 Địa chỉ: 1210 Lê Hồng Phong, phường Nam Nha Trang, tỉnh Khánh Hòa (nếu cần xuất hóa đơn GTGT)
+📱 Điện thoại: 0976 786 494 - Zalo
+💬 Messenger: https://m.me/icyjoss.nh  
 🌐 Website: https://hieunh1984.github.io/Nuocmam584
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
