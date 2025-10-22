@@ -1,12 +1,12 @@
 // ========== DANH SÁCH SẢN PHẨM ==========
 const products = [
-  { id: 1, title: "Nước mắm 584 30°N", price: 35000, img: "img/nuocmam30.jpg", desc: "Đậm đà vị cá cơm truyền thống." },
-  { id: 2, title: "Nước mắm 584 35°N", price: 45000, img: "img/nuocmam35.jpg", desc: "Ngon đậm vị, thích hợp chấm và nấu." },
-  { id: 3, title: "Nước mắm nhĩ đặc biệt 40°N", price: 60000, img: "img/nuocmam40.jpg", desc: "Tinh túy giọt nhĩ đầu tiên." },
-  { id: 4, title: "Nước mắm 584 Gold", price: 80000, img: "img/gold.jpg", desc: "Loại cao cấp dành cho bữa ăn sang trọng." },
-  { id: 5, title: "Nước mắm 584 cá cơm đặc biệt", price: 50000, img: "img/cacomdacbiet.jpg", desc: "Chắt lọc từ cá cơm tươi ngon nhất." },
-  { id: 6, title: "Nước mắm nhĩ cá cơm thượng hạng", price: 70000, img: "img/thuonghang.jpg", desc: "Dành cho người sành ăn, vị mặn mà tự nhiên." },
-  { id: 7, title: "Nước mắm 584 truyền thống 25°N", price: 30000, img: "img/25N.jpg", desc: "Hương vị nhẹ, phù hợp nấu ăn hàng ngày." }
+  { id: 1, title: "Nước mắm 584 30°N (500ml)", price: 35000, img: "images/30n.jpg", desc: "Ngon đậm vị, thích hợp chấm và nấu." },
+  { id: 2, title: "Nước mắm 584 35°N (500ml)", price: 45000, img: "images/35n.jpg", desc: "Đậm đà vị cá cơm truyền thống." },
+  { id: 3, title: "Nước mắm nhĩ đặc biệt 40°N (500ml)-Bán chạy", price: 75000, img: "images/40n.jpg", desc: "Tinh túy giọt nhĩ đầu tiên." },
+  { id: 4, title: "Nước mắm 584 Gold 60°N (200ml)", price: 60000, img: "images/60n.jpg", desc: "Dành cho bữa ăn sang trọng." },
+  { id: 5, title: "Nước mắm 584 đại chúng 12°N (5l)-Đã hết", price: 50000, img: "images/12n.jpg", desc: "Cá cơm là đây." },
+  { id: 6, title: "Nước mắm nhĩ thượng hạng 60°N (200ml)-Đang nhập hàng", price: 65000, img: "images/60db.jpg", desc: "Dành cho người sành ăn, vị mặn mà tự nhiên." },
+  { id: 7, title: "Nước mắm 584 truyền thống 20°N (500ml)", price: 25000, img: "images/20n.jpg", desc: "Hương vị nhẹ, phù hợp nấu ăn hàng ngày." }
 ];
 
 let cart = {};
