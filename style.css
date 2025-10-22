@@ -545,44 +545,40 @@ header nav ul li:hover ul {
   }
 }
 
-/* ===== NÚT MESSENGER HÌNH TRÒN (WEB + MOBILE) ===== */
+/* ===== NÚT MESSENGER TRÒN NHỎ (góc trái) ===== */
 .messenger-circle {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
-  width: 55px;
-  height: 55px;
-  background-color: #0084ff;
+  bottom: 18px;
+  left: 18px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  z-index: 1001;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 14px rgba(2,6,23,0.25);
+  z-index: 1100;
+  text-decoration: none;
+  transition: transform .12s ease, box-shadow .12s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.messenger-circle:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+.messenger-circle:hover,
+.messenger-circle:focus {
+  transform: scale(1.06);
+  box-shadow: 0 8px 18px rgba(2,6,23,0.30);
 }
 
-.messenger-circle img {
-  width: 30px;
-  height: 30px;
-}
+.messenger-circle svg { display: block; }
 
-/* Mobile: thu nhỏ một chút */
+/* nhỏ hơn 480px: hơi thu nhỏ lại */
 @media (max-width: 480px) {
   .messenger-circle {
-    width: 48px;
-    height: 48px;
-    bottom: 15px;
-    left: 15px;
+    width: 46px;
+    height: 46px;
+    bottom: 12px;
+    left: 12px;
   }
-
-  .messenger-circle img {
-    width: 26px;
-    height: 26px;
-  }
+  .messenger-circle svg { width: 24px; height: 24px; }
 }
+
