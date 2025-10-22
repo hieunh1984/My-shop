@@ -545,40 +545,61 @@ header nav ul li:hover ul {
   }
 }
 
-/* ===== NÚT MESSENGER TRÒN NHỎ (góc trái) ===== */
-.messenger-circle {
+/* ===== Nút Messenger & Zalo nổi góc trái ===== */
+.contact-btn {
   position: fixed;
-  bottom: 18px;
-  left: 18px;
+  bottom: 20px;
+  left: 20px;
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 6px 14px rgba(2,6,23,0.25);
   z-index: 1100;
   text-decoration: none;
   transition: transform .12s ease, box-shadow .12s ease;
-  -webkit-tap-highlight-color: transparent;
 }
 
-.messenger-circle:hover,
-.messenger-circle:focus {
-  transform: scale(1.06);
+.contact-btn:hover {
+  transform: scale(1.08);
   box-shadow: 0 8px 18px rgba(2,6,23,0.30);
 }
 
-.messenger-circle svg { display: block; }
+/* Messenger màu xanh */
+.contact-btn.messenger svg {
+  width: 28px;
+  height: 28px;
+}
 
-/* nhỏ hơn 480px: hơi thu nhỏ lại */
+/* Zalo kế bên Messenger */
+.contact-btn.zalo {
+  left: 85px; /* đẩy sang phải một chút */
+  background-color: #fff;
+}
+
+.contact-btn.zalo img {
+  width: 28px;
+  height: 28px;
+}
+
+/* Mobile chỉnh nhỏ lại */
 @media (max-width: 480px) {
-  .messenger-circle {
+  .contact-btn {
     width: 46px;
     height: 46px;
-    bottom: 12px;
-    left: 12px;
+    bottom: 15px;
   }
-  .messenger-circle svg { width: 24px; height: 24px; }
+
+  .contact-btn.messenger { left: 15px; }
+  .contact-btn.zalo { left: 75px; }
+
+  .contact-btn svg, 
+  .contact-btn img {
+    width: 24px;
+    height: 24px;
+  }
 }
+
 
