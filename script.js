@@ -33,6 +33,7 @@ function addToCart(id) {
   updateCartPopup();
 }
 
+// ========== HIỂN THỊ GIỎ HÀNG (WEB) ==========
 function renderCart() {
   const container = document.getElementById("cart-items");
   const ids = Object.keys(cart);
@@ -46,14 +47,18 @@ function renderCart() {
   let total = 0;
   container.innerHTML = ids.map(k => {
     const p = products.find(x => x.id == k);
-    total += p.price * cart[k];
+    const qty = cart[k];
+    total += p.price * qty;
+
     return `
       <div class="cart-item">
         <strong>${p.title}</strong>
-        <div>
-          <span>Số lượng: ${cart[k]}</span>
-          <button onclick="removeItem(${p.id})">Xóa</button>
+        <div class="quantity-controls">
+          <button class="qty-btn" onclick="changeQuantity(${p.id}, -1)">–</button>
+          <span>${qty}</span>
+          <button class="qty-btn" onclick="changeQuantity(${p.id}, 1)">+</button>
         </div>
+        <button class="delete-btn" onclick="removeItem(${p.id})">Xóa</button>
       </div>`;
   }).join("");
 
@@ -62,6 +67,16 @@ function renderCart() {
 
 function removeItem(id) {
   delete cart[id];
+  renderCart();
+  updateBadge();
+  updateCartPopup();
+}
+
+// ========== TĂNG / GIẢM SỐ LƯỢNG ==========
+function changeQuantity(id, delta) {
+  if (!cart[id]) return;
+  cart[id] += delta;
+  if (cart[id] <= 0) delete cart[id];
   renderCart();
   updateBadge();
   updateCartPopup();
@@ -92,6 +107,7 @@ function closeCart() {
   document.getElementById("cart-popup").style.display = "none";
 }
 
+// ========== GIỎ HÀNG (MOBILE) ==========
 function updateCartPopup() {
   const list = document.getElementById("cart-popup-items");
   const totalDisplay = document.getElementById("cart-popup-total");
@@ -106,14 +122,18 @@ function updateCartPopup() {
   let total = 0;
   list.innerHTML = ids.map(k => {
     const p = products.find(x => x.id == k);
-    total += p.price * cart[k];
+    const qty = cart[k];
+    total += p.price * qty;
+
     return `
       <li class="cart-item">
-        <div>
-          <strong>${p.title}</strong><br>
-          <span>Số lượng: ${cart[k]}</span>
+        <strong>${p.title}</strong>
+        <div class="quantity-controls">
+          <button class="qty-btn" onclick="changeQuantity(${p.id}, -1)">–</button>
+          <span>${qty}</span>
+          <button class="qty-btn" onclick="changeQuantity(${p.id}, 1)">+</button>
         </div>
-        <button onclick="removeItem(${p.id})">Xóa</button>
+        <button class="delete-btn" onclick="removeItem(${p.id})">Xóa</button>
       </li>`;
   }).join("");
 
