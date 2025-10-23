@@ -116,6 +116,9 @@ header nav a:hover {
   gap:16px;
 }
 .product-card {
+  background: rgba(50, 47, 189, 0.6); /* nền trắng mờ (trong suốt nhẹ) */
+  backdrop-filter: blur(8px); /* làm mờ nền phía sau */
+
   background:var(--card);
   border-radius:12px;
   padding:12px;
@@ -132,6 +135,7 @@ header nav a:hover {
   object-fit: contain; /* ảnh vừa trong khung, không cắt */
   border-radius: 8px;
 }
+
 .product-card h3 {margin:0;font-size:16px}
 .product-card p {margin:0;color:var(--muted)}
 .product-card .card-actions {
