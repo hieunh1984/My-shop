@@ -94,7 +94,7 @@
       box-shadow: 0 3px 6px rgba(0,0,0,0.2);
       padding: 15px;
       display: none;
-      z-index: 999;
+      z-index: 900;
     }
     .cart-popup h3 {
       margin-top: 0;
@@ -158,74 +158,85 @@
 </head>
 <body>
 
-  <header>
-    <div class="header-container">
-      <h1>Nước Mắm 584-Đại lý HCMC</h1>
-      <nav>
-        <div class="dropdown">
-          <a href="#" class="nav-main" onclick="scrollToTop(event)">Trang chủ ▾</a>
-          <div class="dropdown-content">
-            <a href="readme.html" target="_blank">Giới thiệu</a>
-            <a href="#sanpham">Sản phẩm</a>
-          </div>
+<header>
+  <div class="header-container">
+    <h1 data-key="title">Nước Mắm 584 - Đại lý HCMC</h1>
+    <nav>
+      <div class="dropdown">
+        <a href="#" class="nav-main" onclick="scrollToTop(event)" data-key="home">Trang chủ ▾</a>
+        <div class="dropdown-content">
+          <a href="readme.html" target="_blank" data-key="about">Giới thiệu</a>
+          <a href="#sanpham" data-key="product_link">Sản phẩm</a>
         </div>
-        <a href="#giohang" class="nav-cart">Giỏ hàng</a>
-      </nav>
-    </div>
-  </header>
-
-  <section id="sanpham" class="product-section">
-    <h2>DANH MỤC SẢN PHẨM</h2>
-    <div id="product-list" class="product-list"></div>
-  </section>
-
-  <!-- GIỎ HÀNG WEB -->
-  <aside id="giohang" class="cart-section">
-    <h2>GIỎ HÀNG CỦA BẠN</h2>
-    <div id="cart-items"></div>
-    <div class="cart-summary">
-      <p>Tổng tiền: <strong id="cart-total">0₫</strong></p>
-      <button id="checkout-btn" onclick="openCheckout()">Mua hàng</button>
-      <button id="clear-btn" onclick="clearCart()">Xóa giỏ hàng</button>
-    </div>
-  </aside>
-
-  <!-- Nút giỏ hàng nổi (Mobile) -->
-  <div class="cart-button cart-icon-mobile" onclick="toggleCart()">
-    🛒
-    <span class="badge hidden">0</span>
+      </div>
+      <div class="dropdown">
+        <a href="#" class="nav-cart">🌐 <span data-key="language">Ngôn ngữ</span> ▾</a>
+        <div class="dropdown-content">
+          <a href="#" onclick="setLanguage('vi')">🇻🇳 Tiếng Việt</a>
+          <a href="#" onclick="setLanguage('en')">🇬🇧 English</a>
+          <a href="#" onclick="setLanguage('cn')">🇨🇳 中文</a>
+          <a href="#" onclick="setLanguage('jp')">🇯🇵 日本語</a>
+          <a href="#" onclick="setLanguage('kr')">🇰🇷 한국어</a>
+        </div>
+      </div>
+    </nav>
   </div>
+</header>
 
-  <!-- Popup giỏ hàng (Mobile) -->
-  <div id="cart-popup" class="cart-popup">
-    <h3>Giỏ hàng của bạn</h3>
-    <ul id="cart-popup-items">
-      <li>Chưa có sản phẩm</li>
-    </ul>
-    <div class="cart-popup-actions">
-      <p><strong>Tổng tiền:</strong> <span id="cart-popup-total">0₫</span></p>
-      <button onclick="openCheckout()">Mua hàng</button>
-      <button onclick="closeCart()">Đóng</button>
-    </div>
+<section id="sanpham" class="product-section">
+  <h2 data-key="product_list">DANH MỤC SẢN PHẨM</h2>
+  <div id="product-list" class="product-list"></div>
+</section>
+
+<!-- GIỎ HÀNG WEB -->
+<aside id="giohang" class="cart-section">
+  <h2 data-key="cart_title">GIỎ HÀNG CỦA BẠN</h2>
+  <div id="cart-items"></div>
+  <div class="cart-summary">
+    <p><span data-key="total">Tổng tiền:</span> <strong id="cart-total">0₫</strong></p>
+    <button id="checkout-btn" onclick="openCheckout()" data-key="buy">Mua hàng</button>
+    <button id="clear-btn" onclick="clearCart()" data-key="clear">Xóa giỏ hàng</button>
   </div>
+</aside>
 
-  <!-- MODAL GIAO HÀNG -->
-  <div id="checkout-modal" class="cart-popup" style="width:300px; display:none;">
-    <h3>Thông tin giao hàng</h3>
-    <label>Họ và tên:</label>
-    <input type="text" id="recipient-name" placeholder="Nguyễn Văn A" style="width:100%; margin-bottom:8px;">
-    <label>Số điện thoại:</label>
-    <input type="text" id="recipient-phone" placeholder="090xxxxxxx" style="width:100%; margin-bottom:8px;">
-    <label>Địa chỉ:</label>
-    <textarea id="recipient-address" placeholder="Số nhà, đường, phường..." style="width:100%; margin-bottom:8px;"></textarea>
-    <button onclick="confirmCheckout()">Xác nhận đặt hàng</button>
-    <button onclick="closeCheckout()">Hủy</button>
+<!-- Nút giỏ hàng nổi (Mobile) -->
+<div class="cart-button cart-icon-mobile" onclick="toggleCart()">
+  🛒
+  <span class="badge hidden">0</span>
+</div>
+
+<!-- Popup giỏ hàng (Mobile) -->
+<div id="cart-popup" class="cart-popup">
+  <h3 data-key="cart_popup_title">Giỏ hàng của bạn</h3>
+  <ul id="cart-popup-items">
+    <li data-key="empty_cart">Chưa có sản phẩm</li>
+  </ul>
+  <div class="cart-popup-actions">
+    <p><strong data-key="total">Tổng tiền:</strong> <span id="cart-popup-total">0₫</span></p>
+    <button onclick="openCheckout()" data-key="buy">Mua hàng</button>
+    <button onclick="closeCart()" data-key="close">Đóng</button>
   </div>
+</div>
 
-  <footer id="footer">
-    <p>Copyright © <span id="year"></span> Nước Mắm 584 - Nguyễn Hoàng Hiếu. 
-      All rights reserved.</p>
-  </footer>
+<!-- MODAL GIAO HÀNG -->
+<div id="checkout-modal" class="cart-popup" style="width:300px; display:none;">
+  <h3 data-key="shipping_info">Thông tin giao hàng</h3>
+  <label data-key="fullname">Họ và tên:</label>
+  <input type="text" id="recipient-name" placeholder="Nguyễn Văn A" style="width:100%; margin-bottom:8px;">
+  <label data-key="phone">Số điện thoại:</label>
+  <input type="text" id="recipient-phone" placeholder="090xxxxxxx" style="width:100%; margin-bottom:8px;">
+  <label data-key="address">Địa chỉ:</label>
+  <textarea id="recipient-address" placeholder="Số nhà, đường, phường..." style="width:100%; margin-bottom:8px;"></textarea>
+  <button onclick="confirmCheckout()" data-key="confirm">Xác nhận đặt hàng</button>
+  <button onclick="closeCheckout()" data-key="cancel">Hủy</button>
+</div>
+
+<footer id="footer">
+  <p data-key="footer_text">
+    Copyright © <span id="year"></span> Nước Mắm 584 - Nguyễn Hoàng Hiếu. All rights reserved.
+  </p>
+</footer>
+
 
   <script src="script.js" defer></script>
   <!-- Modal hiển thị hình ảnh -->
@@ -257,6 +268,136 @@
     <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Icon_of_Zalo.svg" alt="Zalo" />
   </a>
 </div>
+
+<script>
+const translations = {
+  vi: {
+    title: "Nước Mắm 584 - Đại lý HCMC",
+    home: "Trang chủ ▾",
+    about: "Giới thiệu",
+    product_link: "Sản phẩm",
+    language: "Ngôn ngữ",
+    product_list: "DANH MỤC SẢN PHẨM",
+    cart_title: "GIỎ HÀNG CỦA BẠN",
+    total: "Tổng tiền:",
+    buy: "Mua hàng",
+    clear: "Xóa giỏ hàng",
+    close: "Đóng",
+    shipping_info: "Thông tin giao hàng",
+    fullname: "Họ và tên:",
+    phone: "Số điện thoại:",
+    address: "Địa chỉ:",
+    confirm: "Xác nhận đặt hàng",
+    cancel: "Hủy",
+    empty_cart: "Chưa có sản phẩm",
+    cart_popup_title: "Giỏ hàng của bạn",
+    footer_text: "Bản quyền © 2025 Nước Mắm 584 - Nguyễn Hoàng Hiếu. Giữ toàn quyền."
+  },
+  en: {
+    title: "Fish Sauce 584 - HCMC Agent",
+    home: "Home ▾",
+    about: "About",
+    product_link: "Products",
+    language: "Language",
+    product_list: "PRODUCT CATEGORIES",
+    cart_title: "YOUR CART",
+    total: "Total:",
+    buy: "Buy now",
+    clear: "Clear cart",
+    close: "Close",
+    shipping_info: "Shipping Information",
+    fullname: "Full name:",
+    phone: "Phone number:",
+    address: "Address:",
+    confirm: "Confirm order",
+    cancel: "Cancel",
+    empty_cart: "No items yet",
+    cart_popup_title: "Your Cart",
+    footer_text: "Copyright © 2025 Fish Sauce 584 - Nguyen Hoang Hieu. All rights reserved."
+  },
+  cn: {
+    title: "584鱼露 - 胡志明市代理",
+    home: "主页 ▾",
+    about: "介绍",
+    product_link: "产品",
+    language: "语言",
+    product_list: "产品目录",
+    cart_title: "您的购物车",
+    total: "总价:",
+    buy: "购买",
+    clear: "清空购物车",
+    close: "关闭",
+    shipping_info: "配送信息",
+    fullname: "姓名:",
+    phone: "电话号码:",
+    address: "地址:",
+    confirm: "确认下单",
+    cancel: "取消",
+    empty_cart: "暂无商品",
+    cart_popup_title: "您的购物车",
+    footer_text: "版权 © 2025 584鱼露 - 阮黄孝。保留所有权利。"
+  },
+  jp: {
+    title: "584魚醤 - ホーチミン代理店",
+    home: "ホーム ▾",
+    about: "紹介",
+    product_link: "製品",
+    language: "言語",
+    product_list: "製品カテゴリ",
+    cart_title: "カート",
+    total: "合計:",
+    buy: "購入する",
+    clear: "カートをクリア",
+    close: "閉じる",
+    shipping_info: "配送情報",
+    fullname: "氏名:",
+    phone: "電話番号:",
+    address: "住所:",
+    confirm: "注文を確認",
+    cancel: "キャンセル",
+    empty_cart: "商品がありません",
+    cart_popup_title: "カート内容",
+    footer_text: "著作権 © 2025 584魚醤 - グエン・ホアン・ヒエウ。全著作権所有。"
+  },
+  kr: {
+    title: "584 피시소스 - 호치민 대리점",
+    home: "홈 ▾",
+    about: "소개",
+    product_link: "제품",
+    language: "언어",
+    product_list: "제품 목록",
+    cart_title: "장바구니",
+    total: "총액:",
+    buy: "구매하기",
+    clear: "장바구니 비우기",
+    close: "닫기",
+    shipping_info: "배송 정보",
+    fullname: "이름:",
+    phone: "전화번호:",
+    address: "주소:",
+    confirm: "주문 확인",
+    cancel: "취소",
+    empty_cart: "상품이 없습니다",
+    cart_popup_title: "장바구니",
+    footer_text: "저작권 © 2025 584 피시소스 - 응우옌 호앙 히에우. 판권 소유."
+  }
+};
+
+function setLanguage(lang) {
+  localStorage.setItem('lang', lang);
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.getAttribute('data-key');
+    if (translations[lang] && translations[lang][key]) {
+      el.innerText = translations[lang][key];
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const savedLang = localStorage.getItem('lang') || 'vi';
+  setLanguage(savedLang);
+});
+</script>
 
 </body>
 </html>
