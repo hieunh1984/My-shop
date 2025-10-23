@@ -168,14 +168,15 @@ header nav a:hover {
 
 /* Cart / aside */
 .cart-section {
-  position:fixed;
-  right:18px;
-  top:88px;
-  width:300px;
-  background:#fff;
-  border-radius:12px;
-  padding:12px;
-  box-shadow:0 8px 26px rgba(0,0,0,0.12);
+  position: fixed;
+  right: 18px;
+  top: 400px; /* 👈 tăng số này để hạ khung xuống thấp hơn */
+  width: 300px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.12);
+  z-index: 90 !important; /* 👈 cho thấp hơn menu ngôn ngữ */
 }
 .cart-section h2 {margin:0 0 8px 0;font-size:16px}
 #cart-items {max-height:340px; overflow:auto; margin-bottom:8px}
@@ -808,4 +809,41 @@ header nav ul li:hover ul {
   width: 22px;
   height: 22px;
   font-size: 14px;
+}
+
+.nav-cart {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ===== Dropdown mobile responsive ===== */
+@media (max-width: 768px) {
+  .dropdown-content {
+    position: fixed;        /* cố định trên màn hình */
+    top: auto;              /* để tránh bị tràn khi scroll */
+    bottom: 100px;          /* cách nút ngôn ngữ 100px */
+    right: 20px;            /* cách mép phải 20px */
+    left: auto;             /* bỏ left:0 */
+    width: 160px;           /* giới hạn chiều rộng */
+    max-width: 90vw;        /* đảm bảo không vượt quá màn hình */
+    overflow: hidden;       /* tránh tràn */
+    display: none;          /* vẫn ẩn mặc định */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    border-radius: 8px;
+    z-index: 1200;
+  }
+  /* Khi hover hoặc click (mobile sẽ dùng JS toggle) */
+  .dropdown:hover .dropdown-content,
+  .dropdown.active .dropdown-content {
+    display: block;
+  }
+  /* Điều chỉnh link bên trong dropdown */
+  .dropdown-content a {
+    padding: 10px 12px;
+    font-size: 14px;
+    white-space: nowrap;     /* không xuống dòng */
+    text-overflow: ellipsis; /* nếu dài quá thì ... */
+    overflow: hidden;
+  }
 }
