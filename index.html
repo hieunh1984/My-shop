@@ -382,7 +382,6 @@ const translations = {
     footer_text: "저작권 © 2025 584 피시소스 - 응우옌 호앙 히에우. 판권 소유."
   }
 };
-
 function setLanguage(lang) {
   localStorage.setItem('lang', lang);
   document.querySelectorAll('[data-key]').forEach(el => {
@@ -392,12 +391,37 @@ function setLanguage(lang) {
     }
   });
 }
-
 window.addEventListener('DOMContentLoaded', () => {
   const savedLang = localStorage.getItem('lang') || 'vi';
   setLanguage(savedLang);
 });
 </script>
+
+<!-- Script lưu ngôn ngữ và dropdown mobile -->
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const savedLang = localStorage.getItem('lang') || 'vi';
+    setLanguage(savedLang);
+
+    // Mobile: toggle dropdown khi click
+    document.querySelectorAll('.dropdown > a.nav-cart').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const dropdown = btn.parentElement;
+        dropdown.classList.toggle('active');
+      });
+    });
+
+    // Click ngoài sẽ đóng dropdown
+    document.addEventListener('click', (e) => {
+      document.querySelectorAll('.dropdown.active').forEach(drop => {
+        if (!drop.contains(e.target)) drop.classList.remove('active');
+      });
+    });
+  });
+  </script>
+
+  <script src="script.js" defer></script>
 
 </body>
 </html>
