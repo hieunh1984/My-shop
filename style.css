@@ -826,18 +826,20 @@ header nav ul li:hover ul {
     right: 20px;            /* cách mép phải 20px */
     left: auto;             /* bỏ left:0 */
     width: 160px;           /* giới hạn chiều rộng */
-    max-width: 90vw;        /* đảm bảo không vượt quá màn hình */
+    max-width: 90vw !important;        /* đảm bảo không vượt quá màn hình */
     overflow: hidden;       /* tránh tràn */
     display: none;          /* vẫn ẩn mặc định */
     box-shadow: 0 6px 18px rgba(0,0,0,0.25);
     border-radius: 8px;
     z-index: 1200;
   }
+
   /* Khi hover hoặc click (mobile sẽ dùng JS toggle) */
   .dropdown:hover .dropdown-content,
   .dropdown.active .dropdown-content {
     display: block;
   }
+
   /* Điều chỉnh link bên trong dropdown */
   .dropdown-content a {
     padding: 10px 12px;
