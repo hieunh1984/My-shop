@@ -397,14 +397,14 @@ function setLanguage(lang) {
 window.addEventListener('DOMContentLoaded', () => {
   setLanguage('vi'); // Reset ngôn ngữ mặc định
 
-  // Mobile: toggle dropdown khi click
-  document.querySelectorAll('.dropdown > a.nav-cart').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const dropdown = btn.parentElement;
-      dropdown.classList.toggle('active');
-    });
+// Mobile: toggle dropdown khi click (áp dụng cho tất cả dropdown)
+document.querySelectorAll('.dropdown > a').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const dropdown = btn.parentElement;
+    dropdown.classList.toggle('active');
   });
+});
 
   // Click ngoài sẽ đóng dropdown
   document.addEventListener('click', (e) => {
