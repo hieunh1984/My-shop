@@ -545,11 +545,10 @@ header nav ul li:hover ul {
   }
 }
 
-/* ===== Nút Messenger & Zalo nổi góc trái ===== */
+/* ===== Nút Messenger & Zalo nổi góc trái - Dọc ===== */
 .contact-btn {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
+  left: 20px; /* cả hai cùng left */
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -562,20 +561,20 @@ header nav ul li:hover ul {
   transition: transform .12s ease, box-shadow .12s ease;
 }
 
-.contact-btn:hover {
-  transform: scale(1.08);
-  box-shadow: 0 8px 18px rgba(2,6,23,0.30);
+/* Messenger dưới cùng */
+.contact-btn.messenger {
+  bottom: 20px;  /* cách đáy 20px */
+  background-color: #0084ff;
 }
 
-/* Messenger màu xanh */
 .contact-btn.messenger svg {
   width: 28px;
   height: 28px;
 }
 
-/* Zalo kế bên Messenger */
+/* Zalo trên Messenger */
 .contact-btn.zalo {
-  left: 85px; /* đẩy sang phải một chút */
+  bottom: 85px;  /* cách đáy 85px → cách Messenger ~65px */
   background-color: #fff;
 }
 
@@ -584,16 +583,21 @@ header nav ul li:hover ul {
   height: 28px;
 }
 
-/* Mobile chỉnh nhỏ lại */
+.contact-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 18px rgba(2,6,23,0.30);
+}
+
+/* Mobile */
 @media (max-width: 480px) {
   .contact-btn {
     width: 46px;
     height: 46px;
-    bottom: 15px;
+    left: 15px; /* cùng left */
   }
 
-  .contact-btn.messenger { left: 15px; }
-  .contact-btn.zalo { left: 75px; }
+  .contact-btn.messenger { bottom: 15px; }
+  .contact-btn.zalo { bottom: 75px; }
 
   .contact-btn svg, 
   .contact-btn img {
@@ -601,6 +605,8 @@ header nav ul li:hover ul {
     height: 24px;
   }
 }
+
+
 
 /* === Nút Thêm vào giỏ hàng nổi bật === */
 .product-card {
